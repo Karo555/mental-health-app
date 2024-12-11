@@ -84,11 +84,6 @@ fun HomeScreen() {
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
@@ -148,7 +143,6 @@ fun HomeScreen() {
             }
         }
     }
-}
 
     @Composable
     fun QuickActionItem(actionName: String) {
