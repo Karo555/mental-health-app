@@ -1,4 +1,4 @@
-package com.example.auri.ui.theme
+package com.edu.auri.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

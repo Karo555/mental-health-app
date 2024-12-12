@@ -9,7 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.auri"
+        applicationId = "com.edu.auri"
         minSdk = 35
         targetSdk = 35
         versionCode = 1
