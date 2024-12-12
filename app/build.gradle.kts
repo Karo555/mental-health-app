@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.auri"
+    namespace = "com.edu.auri"
     compileSdk = 35
 
     defaultConfig {
