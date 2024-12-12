@@ -1,4 +1,4 @@
-package com.edu.auri.design
+package com.edu.auri.frontend.mainmenu
 
 
 
@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.auri.R
+import com.edu.auri.R
 
 
 @Composable
