@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "730102584450",
+    "project_id": "auri-12b96",
+    "storage_bucket": "auri-12b96.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730102584450:android:fd7171ae8d1f4feaa0109b",
+        "android_client_info": {
+          "package_name": "com.edu.auri"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDnp8yg4DvP9t-P9KrCOk-ApFz_FyQEoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730102584450:android:cec38f3983af3f49a0109b",
+        "android_client_info": {
+          "package_name": "com.example.firebaseauthdemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDnp8yg4DvP9t-P9KrCOk-ApFz_FyQEoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
