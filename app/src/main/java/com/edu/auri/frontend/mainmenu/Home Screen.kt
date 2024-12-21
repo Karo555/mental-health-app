@@ -2,7 +2,9 @@ package com.edu.auri.frontend.mainmenu
 
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -22,17 +24,26 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.edu.auri.R
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HomeScreen() {
     val moodOptions = listOf("Very Happy", "Happy", "Neutral", "Sad")
     val selectedMood = remember { mutableStateOf("") }
-// Navigation bar
+
+    // Navigation bar
     Scaffold(
         bottomBar = {
             BottomAppBar {
@@ -67,78 +78,81 @@ fun HomeScreen() {
                 )
             }
         }
-    ) { paddingValues ->
+    )
+    { paddingValues ->
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+                .padding(paddingValues), // Apply the padding values passed as a parameter
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start
         ) {
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Good afternoon Tim, how are you feeling?", // add global name
-                style = MaterialTheme.typography.headlineSmall,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-            Text(
-                text = "You're doing great. Keep it up!",
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
             Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.Top,
                 modifier = Modifier
                     .width(390.dp)
                     .height(64.dp)
-                    .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp)
+                    .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
+                horizontalArrangement = Arrangement.Center, // Center horizontally
+                verticalAlignment = Alignment.CenterVertically, // Center vertically
+            ) {
+                Text(
+                    text = "Home",
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        lineHeight = 23.sp,
+                        fontWeight = FontWeight(700),
+                        color = Color(0xFF141C24),
+                        textAlign = TextAlign.Center // Center the text within the Text component
+                    )
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp)) // Add space between elements
+
+            Text(
+                text = "Good afternoon Tim, how are you feeling?", //TODO Global username
+                style = TextStyle(
+                    fontSize = 32.sp,
+                    lineHeight = 40.sp,
+                    fontWeight = FontWeight(700),
+                    color = Color(0xFF141C24),
+                    textAlign = TextAlign.Center
+                ),
+                modifier = Modifier.padding(horizontal = 16.dp) // Add horizontal padding for alignment
+            )
+
+            Spacer(modifier = Modifier.height(44.dp)) // Add space between elements
+            Row(
+                modifier = Modifier
+                    .width(390.dp)
+                    .height(64.dp)
+                    .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.Top,
             ) {
                 Button(
                     onClick = { /* Record mood action */ },
-                    modifier = Modifier.fillMaxWidth()
+                     Modifier.width(175.dp)
                 ) {
                     Text("Record Mood")
+
                 }
                 Button(
                     onClick = { /* Record mood action */ },
-                    modifier = Modifier.fillMaxWidth()
+                    Modifier.width(175.dp)
                 ) {
                     Text("View Journal")
-
                 }
             }
 
-//            Row(
-//                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
-//                verticalAlignment = Alignment.Top,
-//                modifier = Modifier
-//                    .width(390.dp)
-//                    .height(56.dp)
-//                    .padding(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 12.dp)
-//            ) {
-//                Button(
-//                    onClick = {/* */}
-//                ) { }
-//
-//
-//            }
-//
-//            Spacer(modifier = Modifier.height(8.dp))
-//            TextButton(onClick = { /* View history action */ }) {
-//                Text("View History")
-//            }
-
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(24.dp)) // Add space between elements
             Text(
                 text = "Your Journal",
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.headlineMedium,
             )
             Card(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(340.dp)
                     .padding(bottom = 16.dp),
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
@@ -152,29 +166,105 @@ fun HomeScreen() {
 
             Button(
                 onClick = { /* Write a note action */ },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.width(310.dp)
             ) {
                 Text("Write a note")
             }
-
-            Spacer(modifier = Modifier.height(8.dp))
-            TextButton(onClick = { /* View all action */ }) {
-                Text("View all")
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-            Text(
-                text = "Quick Actions",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            Column {
-                QuickActionItem("Mood History")
-                QuickActionItem("Gratitude Journal")
-                QuickActionItem("Self-Care Activities")
-            }
         }
+
     }
+
+
+//        Column(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .padding(paddingValues)
+//                .padding(horizontal = 16.dp)
+//        ) {
+//
+//            Spacer(modifier = Modifier.height(16.dp))
+//            Text(
+//                text = "Good afternoon Tim, how are you feeling?", // add global name
+//                style = MaterialTheme.typography.headlineSmall,
+//                modifier = Modifier.padding(vertical = 8.dp)
+//            )
+//            Text(
+//                text = "You're doing great. Keep it up!",
+//                style = MaterialTheme.typography.bodySmall,
+//                modifier = Modifier.padding(bottom = 16.dp)
+//            )
+//
+//            Spacer(modifier = Modifier.height(16.dp))
+
+//
+//            Row(
+//                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+//                verticalAlignment = Alignment.Top,
+//                modifier = Modifier
+//                    .width(390.dp)
+//                    .height(64.dp)
+//                    .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp)
+//            ) {
+//                Button(
+//                    onClick = { /* Record mood action */ },
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Text("Record Mood")
+//                }
+//                Button(
+//                    onClick = { /* Record mood action */ },
+//                    modifier = Modifier.fillMaxWidth()
+//                ) {
+//                    Text("View Journal")
+//
+//                }
+//            }
+//
+//
+//            Spacer(modifier = Modifier.height(24.dp))
+//            Text(
+//                text = "Your Journal",
+//                style = MaterialTheme.typography.bodySmall
+//            )
+//            Card(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(bottom = 16.dp),
+//            ) {
+//                Column(modifier = Modifier.padding(16.dp)) {
+//                    Text("Today", style = MaterialTheme.typography.bodyMedium)
+//                    Text(
+//                        "I'm grateful for the sunny weather",
+//                        style = MaterialTheme.typography.bodySmall
+//                    )
+//                }
+//            }
+//
+//            Button(
+//                onClick = { /* Write a note action */ },
+//                modifier = Modifier.fillMaxWidth()
+//            ) {
+//                Text("Write a note")
+//            }
+//
+//            Spacer(modifier = Modifier.height(8.dp))
+//            TextButton(onClick = { /* View all action */ }) {
+//                Text("View all")
+//            }
+//
+//            Spacer(modifier = Modifier.height(24.dp))
+//            Text(
+//                text = "Quick Actions",
+//                style = MaterialTheme.typography.titleMedium,
+//                modifier = Modifier.padding(bottom = 8.dp)
+//            )
+//            Column {
+//                QuickActionItem("Mood History")
+//                QuickActionItem("Gratitude Journal")
+//                QuickActionItem("Self-Care Activities")
+//            }
+//        }
+//    }
 }
 
 @Composable
