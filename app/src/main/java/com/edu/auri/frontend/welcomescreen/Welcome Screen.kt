@@ -79,7 +79,8 @@ fun WelcomeScreen() {
                 // Subtitle
                 Text(
                     text = "Mental health is not just the absence of mental illness. " +
-                            "It’s emotional, physical, and social well-being",
+                            "It’s emotional, physical, and social well-being\n" + "  .   .   ."
+                            +"\n,Meghan McCain",
                     color = Color(0xFF141C24),
                     style = TextStyle(
                         fontSize = 16.sp,
@@ -88,7 +89,7 @@ fun WelcomeScreen() {
                     ),
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.height(390.dp))
+                Spacer(modifier = Modifier.height(350.dp))
 
                 // Sign-up Button
                 Button(
