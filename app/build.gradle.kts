@@ -1,5 +1,4 @@
 plugins {
-    id("com.google.gms.google-services")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
@@ -42,11 +41,11 @@ android {
 }
 
 dependencies {
-    implementation (libs.firebase.firestore)
+    /*implementation (libs.firebase.firestore)
     implementation (libs.firebase.core)
     implementation(libs.google.firebase.auth)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
+    implementation(platform(libs.firebase.bom))*/
+/*    implementation(libs.firebase.analytics)*/
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -63,4 +62,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }

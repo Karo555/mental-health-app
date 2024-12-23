@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -125,9 +126,10 @@ fun HomeScreen() {
             Text(
                 text = "What is your current mood?", //TODO Global username and  welcome message depending on time of day
                 style = TextStyle(
+                    fontStyle = FontStyle.Italic,
                     fontSize = 12.sp,
                     lineHeight = 40.sp,
-                    fontWeight = FontWeight(700),
+                    fontWeight = FontWeight(400),
                     color = Color(0xFF141C24),
                     textAlign = TextAlign.Center
                 ),
@@ -142,8 +144,8 @@ fun HomeScreen() {
                 verticalAlignment = Alignment.Top,
             ) {
                 MoodItem("Happy")
-                MoodItem("Angry")
                 MoodItem("Neutral")
+                MoodItem("Angry")
                 MoodItem("Sad")
             }
 
@@ -156,7 +158,7 @@ fun HomeScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Your Journal \uD83D\uDCD3",
+                    text = "Your Journal \uD83D\uDCD3 ",
                     style = TextStyle(
                         fontSize = 24.sp,
                         lineHeight = 23.sp,
@@ -203,44 +205,67 @@ fun HomeScreen() {
                 }
             }
             Spacer(modifier = Modifier.height(24.dp)) // Add space between elements
-            Text(
-                text = "Quick Actions",
-                style = TextStyle(
-                    fontSize = 24.sp,
-                    lineHeight = 23.sp,
-                    fontWeight = FontWeight(700),
-                    color = Color(0xFF141C24),
-                    textAlign = TextAlign.Center // Center the text within the Text component
+            Row(
+                modifier = Modifier
+                    .width(390.dp)
+                    .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+                horizontalArrangement = Arrangement.Absolute.Left,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Fill in the day overview \uD83C\uDF16 ",
+                    style = TextStyle(
+                        fontSize = 24.sp,
+                        lineHeight = 23.sp,
+                        fontWeight = FontWeight(700),
+                        color = Color(0xFF141C24),
+                        textAlign = TextAlign.Left // Center the text within the Text component
+                    )
                 )
-            )
-            Column {
+            }// Add space between elements
+            Row(
+                modifier = Modifier
+                    .width(390.dp)
+                    .height(64.dp)
+                    .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.Top,
+            ) {
+                Button(
+                    onClick = { /* Record mood action */ },
+                    Modifier.width(310.dp)
+                ) {
+                    Text("Complete today's overview")
+                }
+            }
+
+            /*Column {
                 QuickActionItem("Mood History")
                 QuickActionItem("Gratitude Journal")
                 QuickActionItem("Self-Care Activities")
-            }
+            }*/
         }
     }
 }
 
 
-    // Navigation bar item
-    @Composable
-    fun MoodItem(mood: String) {
-        val moodDictionary = mapOf(
-            "Happy" to "\uD83D\uDE04",
-            "Angry " to "\uD83D\uDE20",
-            "Neutral" to "\uD83D\uDE10",
-            "Sad" to "\uD83D\uDE41"
-        )
-        Button(
-            onClick = { /* Record mood action */ },
-            colors = ButtonDefaults.buttonColors(mood.let { Color(0xFFFFFFFF) }),
-            modifier = Modifier.width(76.dp)
-        ) {
-            Text("${moodDictionary[mood]}")
-        }
+// Navigation bar item
+@Composable
+fun MoodItem(mood: String) {
+    val moodDictionary = mapOf(
+        "Happy" to "\uD83D\uDE04",
+        "Angry" to "\uD83D\uDE24",
+        "Neutral" to "\uD83D\uDE42",
+        "Sad" to "\uD83D\uDE41"
+    )
+    Button(
+        onClick = { /* Record mood action */ },
+        colors = ButtonDefaults.buttonColors(mood.let { Color(0xFFFFFFFF) }),
+        modifier = Modifier.width(76.dp)
+    ) {
+        Text("${moodDictionary[mood]}")
     }
-
+}
 
 
 @Composable
@@ -263,6 +288,8 @@ fun QuickActionItem(actionName: String) {
         Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
     }
 }
+
+
 
 @Preview
 @Composable
