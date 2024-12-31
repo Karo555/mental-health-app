@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/log_daily_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Back Button -->
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp" />
+
+        <!-- MOOD (Spinner) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mood"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:id="@+id/spinnerMood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_marginBottom="16dp" />
+
+        <!-- HOURS OF SLEEP -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sleep Hours"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderSleep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="12"
+            android:stepSize="1"
+            app:labelBehavior="gone"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvSleepValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected: 0h"
+            android:layout_marginBottom="16dp" />
+
+        <!-- GRATIFICATION -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gratification"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderGratification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="10"
+            android:stepSize="1"
+            app:labelBehavior="gone"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvGratificationValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected: 0"
+            android:layout_marginBottom="16dp" />
+
+        <!-- STRESS LEVEL -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stress Level"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderStress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="10"
+            android:stepSize="1"
+            app:labelBehavior="gone"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvStressValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected: 0"
+            android:layout_marginBottom="16dp" />
+
+        <!-- ANXIETY LEVEL -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anxiety Level"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderAnxiety"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="10"
+            android:stepSize="1"
+            app:labelBehavior="gone"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvAnxietyValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected: 0"
+            android:layout_marginBottom="16dp" />
+
+        <!-- LITERS OF WATER -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Liters of Water"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderWater"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="5"
+            android:stepSize="0.5"
+            app:labelBehavior="gone"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvWaterValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected: 0.0 L"
+            android:layout_marginBottom="16dp" />
+
+        <!-- WORKOUT TIME (minutes) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Workout Time (min)"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderWorkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="180"
+            android:stepSize="5"
+            app:labelBehavior="gone"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvWorkoutValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected: 0 min"
+            android:layout_marginBottom="16dp" />
+
+        <!-- ANGER LEVEL -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anger Level"
+            android:textStyle="bold"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderAnger"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="10"
+            android:stepSize="1"
+            app:labelBehavior="gone"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tvAngerValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selected: 0"
+            android:layout_marginBottom="16dp" />
+
+        <!-- SOCIAL INTERACTIONS -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Social Interactions"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etSocial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g. 3"
+            android:inputType="number"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- SWEETS (count) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sweets (count)"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etSweets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g. 2"
+            android:inputType="number"
+            android:layout_marginBottom="16dp" />
+
+        <!-- STRESS, ANXIETY, ANGER ALREADY COVERED ABOVE -->
+
+        <!-- CUPS OF COFFEE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cups of Coffee"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etCoffee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g. 1"
+            android:inputType="number"
+            android:layout_marginBottom="16dp" />
+
+        <!-- ALCOHOL (drinks) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alcohol (drinks)"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etAlcohol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g. 0"
+            android:inputType="number"
+            android:layout_marginBottom="16dp" />
+
+        <!-- DRUGS (Yes/No) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Drugs"
+            android:textStyle="bold"/>
+
+        <Switch
+            android:id="@+id/switchDrugs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Took any substances?"
+            android:layout_marginBottom="16dp" />
+
+        <!-- CIGARETTES (count) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cigarettes (count)"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/etCigarettes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="e.g. 0"
+            android:inputType="number"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btnSaveDaily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Daily Data"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+</ScrollView>
