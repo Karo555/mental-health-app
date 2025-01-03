@@ -1,5 +1,5 @@
-/*
-package com.edu.auri.databases
+
+package com.edu.auri.backend.dailylogs
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -233,4 +233,3 @@ class LogDailyActivity : AppCompatActivity() {
             }
     }
 }
-*/

@@ -75,7 +75,6 @@ fun RegistrationScreen(){
                         .width(300.dp)
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF141C24),
                         contentColor = Color.White
                     )
                 ) {

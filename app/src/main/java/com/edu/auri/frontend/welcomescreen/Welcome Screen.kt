@@ -47,7 +47,7 @@ fun WelcomeScreen() {
         ) {
             // Background Image
             Image(
-                painter = painterResource(id = R.drawable.welcomebackground), // Replace with your image resource
+                painter = painterResource(id = R.drawable.backgroundupdate), // Replace with your image resource
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
@@ -74,14 +74,13 @@ fun WelcomeScreen() {
                 )
                 // Welcome Text
 
-                Spacer(modifier = Modifier.height(18.dp))
+                Spacer(modifier = Modifier.height(28.dp))
 
                 // Subtitle
                 Text(
                     text = "Mental health is not just the absence of mental illness. " +
                             "It’s emotional, physical, and social well-being\n" + "  .   .   ."
-                            +"\n,Meghan McCain",
-                    color = Color(0xFF141C24),
+                            +"\nMeghan McCain",
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontStyle = FontStyle.Italic,
