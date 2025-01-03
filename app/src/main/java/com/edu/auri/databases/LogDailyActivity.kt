@@ -1,7 +1,9 @@
+/*
 package com.edu.auri.databases
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.edu.auri.R
 import com.google.android.material.slider.Slider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -231,3 +233,4 @@ class LogDailyActivity : AppCompatActivity() {
             }
     }
 }
+*/

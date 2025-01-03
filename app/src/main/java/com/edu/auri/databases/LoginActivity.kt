@@ -1,3 +1,4 @@
+/*
 package com.edu.auri.databases
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +8,7 @@ import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.mymentalhealthapp.MainActivity
-import com.example.mymentalhealthapp.SignUpActivity
+import com.edu.auri.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -52,3 +52,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
+*/

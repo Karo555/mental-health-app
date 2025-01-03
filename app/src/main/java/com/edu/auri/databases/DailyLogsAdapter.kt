@@ -1,3 +1,4 @@
+/*
 package com.edu.auri.databases
 
 import android.view.LayoutInflater
@@ -5,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.edu.auri.R
 
 class DailyLogsAdapter(private var logs: List<DailyLog>) : RecyclerView.Adapter<DailyLogsAdapter.LogViewHolder>() {
 
@@ -31,4 +33,4 @@ class DailyLogsAdapter(private var logs: List<DailyLog>) : RecyclerView.Adapter<
         logs = newLogs
         notifyDataSetChanged()
     }
-}
+}*/

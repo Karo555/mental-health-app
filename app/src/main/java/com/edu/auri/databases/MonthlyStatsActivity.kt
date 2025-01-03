@@ -1,3 +1,4 @@
+/*
 package com.edu.auri.databases
 import android.os.Bundle
 import android.widget.Button
@@ -6,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.edu.auri.R
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -43,6 +45,8 @@ class MonthlyStatsActivity : AppCompatActivity() {
 
         fetchMonthlyLogs()
     }
+
+
 
     private fun fetchMonthlyLogs() {
         val user = auth.currentUser ?: return
@@ -103,4 +107,4 @@ data class DailyLog(
     val gratification: Int,
     val sleepHours: Float,
     val timestamp: Timestamp
-)
+)*/
