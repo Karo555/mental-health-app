@@ -1,6 +1,5 @@
+package com.edu.auri.databases//
 //
-//
-//package com.edu.auri.databases
 //
 //import android.content.Intent
 //import android.os.Bundle

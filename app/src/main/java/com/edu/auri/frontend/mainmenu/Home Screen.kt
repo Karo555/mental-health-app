@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -31,12 +32,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.edu.auri.R
+import com.edu.auri.ui.theme.AuriTheme
 
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController = rememberNavController()) {
 
 
     // Navigation bar
@@ -112,7 +115,6 @@ fun HomeScreen() {
                     fontSize = 32.sp,
                     lineHeight = 40.sp,
                     fontWeight = FontWeight(700),
-                    color = Color(0xFF141C24),
                     textAlign = TextAlign.Center
                 ),
                 modifier = Modifier.padding(horizontal = 16.dp) // Add horizontal padding for alignment
@@ -121,14 +123,7 @@ fun HomeScreen() {
             Spacer(modifier = Modifier.height(44.dp)) // Add space between elements
             Text(
                 text = "What is your current mood?", //TODO Global username and  welcome message depending on time of day
-                style = TextStyle(
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 12.sp,
-                    lineHeight = 40.sp,
-                    fontWeight = FontWeight(400),
-                    color = Color(0xFF141C24),
-                    textAlign = TextAlign.Center
-                ),
+                style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(horizontal = 16.dp) // Add horizontal padding for alignment
             )
             Row(
@@ -155,13 +150,7 @@ fun HomeScreen() {
             ) {
                 Text(
                     text = "Your Journal \uD83D\uDCD3 ",
-                    style = TextStyle(
-                        fontSize = 24.sp,
-                        lineHeight = 23.sp,
-                        fontWeight = FontWeight(700),
-                        color = Color(0xFF141C24),
-                        textAlign = TextAlign.Left // Center the text within the Text component
-                    )
+                    style = MaterialTheme.typography.headlineMedium
                 )
             }// Add space between elements
 
@@ -195,7 +184,7 @@ fun HomeScreen() {
             ) {
                 Button(
                     onClick = { /* Record mood action */ },
-                    Modifier.width(310.dp)
+                    modifier = Modifier.width(310.dp),
                 ) {
                     Text("Write a note")
                 }
@@ -210,13 +199,7 @@ fun HomeScreen() {
             ) {
                 Text(
                     text = "Fill in the day overview \uD83C\uDF16 ",
-                    style = TextStyle(
-                        fontSize = 24.sp,
-                        lineHeight = 23.sp,
-                        fontWeight = FontWeight(700),
-                        color = Color(0xFF141C24),
-                        textAlign = TextAlign.Left // Center the text within the Text component
-                    )
+                    style = MaterialTheme.typography.headlineMedium
                 )
             }// Add space between elements
             Row(
@@ -264,7 +247,6 @@ fun MoodItem(mood: String) {
                 fontSize = 20.sp,
                 lineHeight = 23.sp,
                 fontWeight = FontWeight(700),
-                color = Color(0xFF141C24),
                 textAlign = TextAlign.Center
             )
         )
@@ -285,7 +267,6 @@ fun QuickActionItem(actionName: String) {
                 fontSize = 16.sp,
                 lineHeight = 23.sp,
                 fontWeight = FontWeight(700),
-                color = Color(0xFF141C24),
                 textAlign = TextAlign.Start
             ),
         )
@@ -298,7 +279,7 @@ fun QuickActionItem(actionName: String) {
 @Preview
 @Composable
 fun PreviewHomeScreen() {
-    MaterialTheme {
+    AuriTheme {
         HomeScreen()
     }
 }
