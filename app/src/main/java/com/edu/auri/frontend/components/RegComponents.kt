@@ -7,6 +7,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -15,9 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun NameField() {
-    var name = remember { mutableStateOf("") }
-
+fun NameField( name: MutableState<String>) {
     TextField(
         value = name.value,
         onValueChange = { name.value = it },
@@ -32,11 +31,8 @@ fun NameField() {
 }
 
 @Composable
-fun PasswordField() {
-
-    var password = remember { mutableStateOf("") }
-
-    OutlinedTextField(
+fun PasswordField(password: MutableState<String>) {
+        OutlinedTextField(
         value = password.value,
         onValueChange = { password.value = it },
         label = { Text("Password") },
@@ -49,9 +45,7 @@ fun PasswordField() {
     )
 }
 @Composable
-fun EmailField() {
-    var email = remember { mutableStateOf("") }
-
+fun EmailField(email: MutableState<String>) {
     OutlinedTextField(
         value = email.value,
         onValueChange = { email.value = it },

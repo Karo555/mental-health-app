@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.edu.auri.backend.registration.AuthViewModel
+import com.edu.auri.frontend.login.LoginScreen
 import com.edu.auri.frontend.mainmenu.HomeScreen
 import com.edu.auri.frontend.sign_up.RegistrationScreen
 import com.edu.auri.frontend.welcomescreen.WelcomeScreen
@@ -14,7 +15,6 @@ import com.edu.auri.frontend.welcomescreen.WelcomeScreen
 fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
     val navController = rememberNavController()
 
-    // Use the AppNavHost composable from AppNavHost.kt
     NavHost(
         navController = navController, startDestination = "welcome", builder = {
             composable("welcome") {
@@ -25,6 +25,10 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) 
             }
             composable("signup") {
                 RegistrationScreen(modifier, navController, authViewModel)
+            }
+            composable("login") {
+                LoginScreen(modifier, navController, authViewModel)
+
             }
         }
     )

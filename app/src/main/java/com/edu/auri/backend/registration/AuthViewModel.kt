@@ -34,6 +34,24 @@ class AuthViewModel : ViewModel() {
                 }
             }
     }
+    fun signUp(email: String, password: String, name: String) {
+        if (email.isEmpty() || password.isEmpty() || name.isEmpty()) {
+            _authState.value = AuthState.Error("Fields cannot be empty")
+            return
+        }
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    _authState.value = AuthState.Authenticated
+                } else {
+                    _authState.value = AuthState.Error(task.exception?.message ?: "Sign-up failed")
+                }
+            }
+    }
+    fun signOut() {
+        auth.signOut()
+        _authState.value = AuthState.Unauthenticated
+    }
 
 }
 sealed class AuthState {

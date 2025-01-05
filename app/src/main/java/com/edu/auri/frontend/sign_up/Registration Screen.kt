@@ -1,6 +1,4 @@
 package com.edu.auri.frontend.sign_up
-import android.annotation.SuppressLint
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,15 +8,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,20 +26,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.livedata.observeAsState
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.components.EmailField
 import com.edu.auri.frontend.components.NameField
 import com.edu.auri.frontend.components.PasswordField
-import com.edu.auri.frontend.login.LoginScreen
 import com.edu.auri.ui.theme.AuriTheme
 
 
 @Composable
 fun RegistrationScreen(modifier: Modifier = Modifier,navController: NavController, authViewModel: AuthViewModel) {
-    var email: String by remember { mutableStateOf("") }
-    var password: String by remember { mutableStateOf("") }
-    var name: String by remember { mutableStateOf("") }
+    var email = remember { mutableStateOf("") }
+    var password  = remember { mutableStateOf("") }
+    var name = remember { mutableStateOf("") }
+
+    val authState = authViewModel.authState.observeAsState()
+    val context = LocalContext.current
 
 
         Surface(
@@ -74,14 +72,14 @@ fun RegistrationScreen(modifier: Modifier = Modifier,navController: NavControlle
                             .fillMaxWidth()
                     )
                     Spacer(modifier = Modifier.height(28.dp))
-                    NameField()
+                    NameField(name)
                     Spacer(modifier = Modifier.height(50.dp))
-                    EmailField()
+                    EmailField(email)
                     Spacer(modifier = Modifier.height(50.dp))
-                    PasswordField()
+                    PasswordField(password)
                     Spacer(modifier = Modifier.height(50.dp))
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { authViewModel.signUp(email.value, password.value, name.value) },
                         modifier = Modifier
                             .width(300.dp)
                             .height(50.dp),
@@ -89,9 +87,9 @@ fun RegistrationScreen(modifier: Modifier = Modifier,navController: NavControlle
                         Text(text = "Sign Up")
                     }
                     Spacer(modifier = Modifier.height(50.dp))
-                    Text(
-                        text = "Already have an account? Log in",
-                    )
+                    TextButton(onClick = { navController.navigate("login") }) {
+                        Text(text = "Already have an account? Login")
+                    }
 
                 }
             }

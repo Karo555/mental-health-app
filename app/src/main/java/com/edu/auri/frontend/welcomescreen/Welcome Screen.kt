@@ -32,11 +32,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.edu.auri.R
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.ui.theme.AuriTheme
 
-@SuppressLint
 @Composable
 fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
     // Use Box to layer elements
@@ -118,7 +118,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { /* Handle sign-up action */ },
+                    onClick = { navController.navigate("login") },
                     modifier = Modifier
                         .width(200.dp),
                     colors = ButtonDefaults.buttonColors(Color(0XFFFFFFFF)),
@@ -135,16 +135,22 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
 
     }
 }
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewWelcomeScreen() {
-    AuriTheme {
-        WelcomeScreen(modifier = Modifier, navController = NavController(LocalContext.current),
-            authViewModel = AuthViewModel())
+    val navController = rememberNavController() // Create a navController for navigation simulation
+    val mockAuthViewModel = AuthViewModel() // Use a mock or actual lightweight AuthViewModel
 
+    AuriTheme { // Ensure consistent styling with the app theme
+        WelcomeScreen(
+            modifier = Modifier,
+            navController = navController,
+            authViewModel = mockAuthViewModel
+        )
     }
-
 }
+
+
 
 
 
