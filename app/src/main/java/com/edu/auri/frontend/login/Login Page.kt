@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -20,12 +22,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.components.EmailField
 import com.edu.auri.frontend.components.PasswordField
 import com.edu.auri.ui.theme.AuriTheme
 
 @Composable
-fun LoginScreen () {
+fun LoginScreen (modifier: Modifier = Modifier, navController: NavController,
+                 authViewModel: AuthViewModel) {
     Surface (
         color = MaterialTheme.colorScheme.surfaceVariant,
         modifier = Modifier.fillMaxSize()
@@ -57,6 +62,11 @@ fun LoginScreen () {
                     EmailField()
                     Spacer(modifier = Modifier.height(28.dp))
                     PasswordField()
+                    Spacer(modifier = Modifier.height(28.dp))
+
+                Button(onClick = { /*TODO*/ }) {
+                    Text(text = "Login")
+                }
 
 
             }
@@ -68,5 +78,5 @@ fun LoginScreen () {
 @Composable
 @Preview
 fun LoginScreenPreview () {
-    AuriTheme { LoginScreen() }
+    AuriTheme { LoginScreen(Modifier, NavController(LocalContext.current), AuthViewModel()) }
 }

@@ -3,6 +3,7 @@ package com.edu.auri.frontend.components
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -35,7 +36,7 @@ fun PasswordField() {
 
     var password = remember { mutableStateOf("") }
 
-    TextField(
+    OutlinedTextField(
         value = password.value,
         onValueChange = { password.value = it },
         label = { Text("Password") },
@@ -51,7 +52,7 @@ fun PasswordField() {
 fun EmailField() {
     var email = remember { mutableStateOf("") }
 
-    TextField(
+    OutlinedTextField(
         value = email.value,
         onValueChange = { email.value = it },
         label = { Text("Enter your email") },

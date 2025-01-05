@@ -39,7 +39,7 @@ import com.edu.auri.ui.theme.AuriTheme
 
 
 @Composable
-fun HomeScreen(navController: NavController = rememberNavController()) {
+fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
 
 
     // Navigation bar
@@ -280,6 +280,6 @@ fun QuickActionItem(actionName: String) {
 @Composable
 fun PreviewHomeScreen() {
     AuriTheme {
-        HomeScreen()
+        HomeScreen(modifier = Modifier, navController = NavController(LocalContext.current))
     }
 }

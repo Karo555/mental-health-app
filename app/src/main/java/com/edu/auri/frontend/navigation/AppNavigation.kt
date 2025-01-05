@@ -11,9 +11,9 @@ sealed class Screen(val route: String) {
     data object LoginScreen : Screen("login_screen")
     data object WelcomeScreen : Screen("welcome_screen")
     data object MoodScreen : Screen("mood_screen")
-    data object SleepScreen : Screen("sleep_screen")
+    data object SettingsScreen : Screen("settings_screen")
+    data object InsightsScreen : Screen("insights_screen")
     data object GratitudeScreen : Screen("gratitude_screen")
-    data object StatsScreen : Screen("stats_screen")
 }
 
 val  screens = listOf(
@@ -22,7 +22,7 @@ val  screens = listOf(
     Screen.LoginScreen,
     Screen.WelcomeScreen,
     Screen.MoodScreen,
-    Screen.SleepScreen,
+    Screen.SettingsScreen,
     Screen.GratitudeScreen,
-    Screen.StatsScreen
+    Screen.InsightsScreen
 )

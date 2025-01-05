@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.components.EmailField
 import com.edu.auri.frontend.components.NameField
 import com.edu.auri.frontend.components.PasswordField
@@ -39,12 +40,11 @@ import com.edu.auri.ui.theme.AuriTheme
 
 
 @Composable
-fun RegistrationScreen(navController: NavController = rememberNavController()) {
+fun RegistrationScreen(modifier: Modifier = Modifier,navController: NavController, authViewModel: AuthViewModel) {
     var email: String by remember { mutableStateOf("") }
     var password: String by remember { mutableStateOf("") }
     var name: String by remember { mutableStateOf("") }
 
-    val context = LocalContext.current
 
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -102,5 +102,6 @@ fun RegistrationScreen(navController: NavController = rememberNavController()) {
 @Preview
 @Composable
 fun RegistrationScreenPreview() {
-    AuriTheme() {RegistrationScreen()}
+    AuriTheme() {RegistrationScreen(modifier = Modifier, navController = NavController(LocalContext.current),
+        authViewModel = AuthViewModel())}
 }
