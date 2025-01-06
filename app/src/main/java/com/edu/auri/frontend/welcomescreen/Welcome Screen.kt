@@ -96,7 +96,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
 
                 // Sign-up Button
                 Button(
-                    onClick = { /* Handle sign-up action */ },
+                    onClick = { navController.navigate("signup") },
                     modifier = Modifier.width(200.dp),
                     colors = ButtonDefaults.buttonColors(Color(0xFF141C24)),
                 ) {
