@@ -50,7 +50,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.material3)
     implementation(platform(libs.firebase.bom))
