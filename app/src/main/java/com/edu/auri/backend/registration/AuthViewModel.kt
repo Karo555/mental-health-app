@@ -13,11 +13,11 @@ class AuthViewModel : ViewModel() {
         checkAuthState()
     }
 
-    fun checkAuthState() {
-        if (auth.currentUser != null) {
-            _authState.value = AuthState.Authenticated
-        }else {
+    private fun checkAuthState() {
+        if (auth.currentUser == null) {
             _authState.value = AuthState.Unauthenticated
+        }else {
+            _authState.value = AuthState.Authenticated
         }
     }
     fun login(email: String, password: String) {
@@ -39,6 +39,7 @@ class AuthViewModel : ViewModel() {
             _authState.value = AuthState.Error("Fields cannot be empty")
             return
         }
+        _authState.value = AuthState.Loading
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

@@ -1,4 +1,5 @@
 package com.edu.auri.frontend.sign_up
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.compose.runtime.livedata.observeAsState
+import com.edu.auri.backend.registration.AuthState
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.components.EmailField
 import com.edu.auri.frontend.components.NameField
@@ -42,7 +45,14 @@ fun RegistrationScreen(modifier: Modifier = Modifier,navController: NavControlle
 
     val authState = authViewModel.authState.observeAsState()
     val context = LocalContext.current
-
+    LaunchedEffect(authState.value) {
+        when (authState.value) {
+            is AuthState.Authenticated -> navController.navigate("home")
+            is AuthState.Error -> Toast.makeText(context,
+                (authState.value as AuthState.Error).message,Toast.LENGTH_SHORT).show()
+            else -> Unit
+        }
+    }
 
         Surface(
             modifier = Modifier.fillMaxSize(),

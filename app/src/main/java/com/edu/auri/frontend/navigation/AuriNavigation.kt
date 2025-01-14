@@ -21,7 +21,7 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) 
                 WelcomeScreen(modifier, navController, authViewModel)
             }
             composable("home") {
-                HomeScreen(modifier, navController)
+                HomeScreen(modifier, navController, authViewModel)
             }
             composable("signup") {
                 RegistrationScreen(modifier, navController, authViewModel)

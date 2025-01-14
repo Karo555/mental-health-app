@@ -36,10 +36,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.edu.auri.R
 import com.edu.auri.ui.theme.AuriTheme
+import com.edu.auri.backend.registration.AuthViewModel
 
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
 
 
     // Navigation bar
@@ -217,6 +218,21 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
                     Text("Complete today's overview")
                 }
             }
+            Row (
+                modifier = Modifier
+                    .width(390.dp)
+                    .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+                horizontalArrangement = Arrangement.Absolute.Left,
+                verticalAlignment = Alignment.CenterVertically
+            )  {
+                Button(
+                    onClick = {authViewModel.signOut()},
+                    Modifier.width(310.dp)
+                ) {
+                    Text("Sign out TEMPORARY")
+
+                }
+            }
 
             /*Column {
                 QuickActionItem("Mood History")
@@ -224,6 +240,8 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController) {
                 QuickActionItem("Self-Care Activities")
             }*/
         }
+
+
     }
 }
 
@@ -276,10 +294,10 @@ fun QuickActionItem(actionName: String) {
 
 
 
-@Preview
-@Composable
-fun PreviewHomeScreen() {
-    AuriTheme {
-        HomeScreen(modifier = Modifier, navController = NavController(LocalContext.current))
-    }
-}
+//@Preview
+//@Composable
+//fun PreviewHomeScreen() {
+//    AuriTheme {
+//        HomeScreen(modifier = Modifier, navController = NavController(LocalContext.current))
+//    }
+//}
