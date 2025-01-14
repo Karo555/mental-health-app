@@ -1,7 +1,7 @@
 package com.edu.auri.frontend.mainmenu
 
 
-import android.annotation.SuppressLint
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,15 +18,13 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,13 +33,28 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.edu.auri.R
+import com.edu.auri.backend.registration.AuthState
 import com.edu.auri.ui.theme.AuriTheme
 import com.edu.auri.backend.registration.AuthViewModel
+import java.util.Calendar
 
+/**
+ * The home screen of the app.
+ * @param modifier The modifier for the composable.
+ * @param navController The navigation controller for the app.
+ * @param authViewModel The authentication view model for the app.
+ */
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
-
+fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
+               authViewModel: AuthViewModel) {
+    val authState = authViewModel.authState.observeAsState()
+    LaunchedEffect(authState.value) {
+        when (authState.value) {
+            is AuthState.Unauthenticated -> navController.navigate("login")
+            else -> Unit
+        }
+    }
 
     // Navigation bar
     Scaffold(
@@ -51,7 +64,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
                     label = { Text("Home") },
                     selected = true,
-                    onClick = {}
+                    onClick = {navController.navigate("home")}
                 )
                 NavigationBarItem(
                     icon = {
@@ -62,19 +75,19 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                     },
                     label = { Text("Insights") },
                     selected = false,
-                    onClick = {}
+                    onClick = {navController.navigate("insights")}
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Favorite, contentDescription = "Gratitude") },
                     label = { Text("Gratitude") },
                     selected = false,
-                    onClick = {}
+                    onClick = {navController.navigate("gratitude")}
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
                     label = { Text("Settings") },
                     selected = false,
-                    onClick = {}
+                    onClick = {navController.navigate("settings")}
                 )
             }
         }
@@ -102,7 +115,6 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                         fontSize = 18.sp,
                         lineHeight = 23.sp,
                         fontWeight = FontWeight(700),
-                        color = Color(0xFF141C24),
                         textAlign = TextAlign.Center // Center the text within the Text component
                     )
                 )
@@ -111,7 +123,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
             Spacer(modifier = Modifier.height(16.dp)) // Add space between elements
 
             Text(
-                text = "Good afternoon Tim, how are you feeling?", //TODO Global username and  welcome message depending on time of day
+                text = "${getGreeting()}, how are you feeling?", //TODO Global username and  welcome message depending on time of day
                 style = TextStyle(
                     fontSize = 32.sp,
                     lineHeight = 40.sp,
@@ -123,7 +135,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
 
             Spacer(modifier = Modifier.height(44.dp)) // Add space between elements
             Text(
-                text = "What is your current mood?", //TODO Global username and  welcome message depending on time of day
+                text = "What is your current mood?",
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(horizontal = 16.dp) // Add horizontal padding for alignment
             )
@@ -153,8 +165,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                     text = "Your Journal \uD83D\uDCD3 ",
                     style = MaterialTheme.typography.headlineMedium
                 )
-            }// Add space between elements
-
+            }
             Spacer(modifier = Modifier.height(15.dp)) // Add space between elements
             Box(
                 modifier = Modifier
@@ -292,7 +303,14 @@ fun QuickActionItem(actionName: String) {
     }
 }
 
-
+fun getGreeting(): String {
+    val currentTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+    return when (currentTime) {
+        in 6..11 -> "Good morning"
+        in 12..17 -> "Good afternoon"
+        else -> "Good evening"
+    }
+}
 
 //@Preview
 //@Composable

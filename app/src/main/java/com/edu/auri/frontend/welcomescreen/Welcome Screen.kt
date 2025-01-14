@@ -66,7 +66,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
             ) {
                 Spacer(modifier = Modifier.height(140.dp))
                 Text(
-                    text = "Welcome to Auri", //TODO Global username and  welcome message depending on time of day
+                    text = "Welcome to Auri",
                     style = TextStyle(
                         fontSize = 42.sp,
                         lineHeight = 40.sp,
@@ -89,6 +89,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                         fontSize = 16.sp,
                         fontStyle = FontStyle.Italic,
                         fontWeight = FontWeight(700),
+                        color = Color(0xFF141C24),
                     ),
                     textAlign = TextAlign.Center
                 )
@@ -100,7 +101,11 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                     modifier = Modifier.width(200.dp),
                     colors = ButtonDefaults.buttonColors(Color(0xFF141C24)),
                 ) {
-                    Text(text = "Sign up")
+                    Text(text = "Sign up",
+                    style = TextStyle(
+                        color = Color(0xFFFFFFFF),
+                    )
+                    )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
