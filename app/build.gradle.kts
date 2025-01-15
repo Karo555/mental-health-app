@@ -51,6 +51,8 @@ android {
 
 dependencies {
     implementation(libs.converter.gson)
+    implementation(libs.retrofit.v290)
+    implementation(libs.converter.gson.v290)
     implementation(libs.androidx.material3)
     implementation(platform(libs.firebase.bom))
     implementation(libs.androidx.core.ktx)
