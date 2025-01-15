@@ -5,9 +5,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.text.style.*
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -15,6 +17,7 @@ import com.edu.auri.backend.registration.AuthViewModel
 
 @Composable
 fun TipsScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
+
     val tipsViewModel: TipsViewModel = viewModel()
     val tipsText by tipsViewModel.tipsText.observeAsState("")
 
@@ -49,4 +52,12 @@ fun TipsScreen(modifier: Modifier = Modifier, navController: NavController, auth
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+
+fun TipsScreenPreview() {
+    val context = LocalContext.current
+    TipsScreen(navController = NavController(context), authViewModel = AuthViewModel())
 }
