@@ -44,7 +44,7 @@ fun Insights (navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically, // Center vertically
             ) {
                 Text(
-                    text = "Home",
+                    text = "Insights",
                     style = TextStyle(
                         fontSize = 18.sp,
                         lineHeight = 23.sp,

@@ -38,10 +38,10 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) 
                 Insights(navController)
             }
             composable("settings") {
-                SettingsScreen()
+                SettingsScreen(navController)
             }
             composable("gratitude") {
-                GratitudeScreen()
+                GratitudeScreen(navController)
             }
             composable("dayoverview") {
                 DayOverviewScreen()
