@@ -13,9 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,19 +20,15 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.edu.auri.R
 import com.edu.auri.backend.registration.AuthState
-import com.edu.auri.ui.theme.AuriTheme
 import com.edu.auri.backend.registration.AuthViewModel
+import com.edu.auri.frontend.components.BottomBar
 import java.util.Calendar
 
 /**
@@ -59,38 +52,8 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
     // Navigation bar
     Scaffold(
         bottomBar = {
-            BottomAppBar {
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-                    label = { Text("Home") },
-                    selected = true,
-                    onClick = {navController.navigate("home")}
-                )
-                NavigationBarItem(
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_analytics_24),
-                            contentDescription = "Insights"
-                        )
-                    },
-                    label = { Text("Insights") },
-                    selected = false,
-                    onClick = {navController.navigate("insights")}
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Gratitude") },
-                    label = { Text("Gratitude") },
-                    selected = false,
-                    onClick = {navController.navigate("gratitude")}
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },
-                    label = { Text("Settings") },
-                    selected = false,
-                    onClick = {navController.navigate("settings")}
-                )
-            }
-        }
+            BottomBar(navController)
+        },
     )
     { paddingValues ->
 
