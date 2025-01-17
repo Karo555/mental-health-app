@@ -1,9 +1,8 @@
 package com.edu.auri.frontend.welcomescreen
 
-import android.annotation.SuppressLint
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -133,7 +132,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { navController.navigate("login") },
+                    onClick = { navController.navigate("MoodScrenTest") },
                     modifier = Modifier
                         .width(200.dp),
                     colors = ButtonDefaults.buttonColors(Color(0XFFFFFFFF)),
@@ -148,20 +147,6 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
             }
         }
 
-    }
-}
-@Preview(showBackground = true)
-@Composable
-fun PreviewWelcomeScreen() {
-    val navController = rememberNavController() // Create a navController for navigation simulation
-    val mockAuthViewModel = AuthViewModel() // Use a mock or actual lightweight AuthViewModel
-
-    AuriTheme { // Ensure consistent styling with the app theme
-        WelcomeScreen(
-            modifier = Modifier,
-            navController = navController,
-            authViewModel = mockAuthViewModel
-        )
     }
 }
 

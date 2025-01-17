@@ -242,6 +242,38 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                         }
                     }
                 }
+                item {
+                    Row(
+                        modifier = Modifier
+                            .width(390.dp)
+                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+                        horizontalArrangement = Arrangement.Absolute.Left,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Button(
+                            onClick = { navController.navigate("Journal") },
+                            Modifier.width(310.dp)
+                        ) {
+                            Text("Journal")
+                        }
+                    }
+                }
+//                item {
+//                    Row(
+//                        modifier = Modifier
+//                            .width(390.dp)
+//                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+//                        horizontalArrangement = Arrangement.Absolute.Left,
+//                        verticalAlignment = Alignment.CenterVertically
+//                    ) {
+//                        Button(
+//                            onClick = { navController.navigate("MoodScrenTest") },
+//                            Modifier.width(310.dp)
+//                        ) {
+//                            Text("Journal")
+//                        }
+//                    }
+//                }
             }
 
 
@@ -305,11 +337,3 @@ fun getGreeting(): String {
         else -> "Good evening"
     }
 }
-
-//@Preview
-//@Composable
-//fun PreviewHomeScreen() {
-//    AuriTheme {
-//        HomeScreen(modifier = Modifier, navController = NavController(LocalContext.current))
-//    }
-//}
