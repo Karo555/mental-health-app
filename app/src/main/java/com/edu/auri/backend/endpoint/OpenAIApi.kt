@@ -1,14 +1,19 @@
 package com.edu.auri.backend.endpoint
 
-import retrofit2.Call
+
+import com.edu.auri.backend.endpoint.ChatCompletionRequest
+import com.edu.auri.backend.endpoint.ChatCompletionResponse
 import retrofit2.http.Body
-import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface OpenAIApi {
+
+    @Headers("Content-Type: application/json")
     @POST("v1/chat/completions")
-    fun createChatCompletion(
-        @Header("Authorization") authHeader: String,
+    suspend fun getChatCompletion(
         @Body request: ChatCompletionRequest
-    ): Call<ChatCompletionResponse>
+    ): ChatCompletionResponse
 }
+
+
