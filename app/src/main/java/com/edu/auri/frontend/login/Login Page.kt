@@ -36,19 +36,32 @@ import com.edu.auri.frontend.components.EmailField
 import com.edu.auri.frontend.components.PasswordField
 import com.edu.auri.ui.theme.AuriTheme
 
+/**
+ * Composable function that renders the Login Screen.
+ *
+ * The Login Screen provides UI elements for entering an email and password, and buttons to trigger
+ * login or navigate to a sign-up screen. It observes authentication state changes via the
+ * provided [authViewModel] to navigate or show error messages.
+ *
+ * @param modifier [Modifier] for this composable.
+ * @param navController The [NavController] used for navigating between screens.
+ * @param authViewModel The [AuthViewModel] instance that provides authentication logic.
+ */
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     authViewModel: AuthViewModel
 ) {
-
+    // Hold the input states for email and password.
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
 
+    // Observe the current authentication state.
     val authState = authViewModel.authState.observeAsState()
     val context = LocalContext.current
 
+    // React to authentication state changes.
     LaunchedEffect(authState.value) {
         when (authState.value) {
             is AuthState.Authenticated -> navController.navigate("home")
@@ -57,10 +70,8 @@ fun LoginScreen(
                     context, (authState.value as AuthState.Error).message,
                     Toast.LENGTH_SHORT
                 ).show()
-
             else -> Unit
         }
-
     }
 
     Surface(
@@ -68,15 +79,13 @@ fun LoginScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
-
             ) {
                 Spacer(modifier = Modifier.height(140.dp))
                 Text(
@@ -87,37 +96,43 @@ fun LoginScreen(
                         fontStyle = FontStyle.Normal,
                         textAlign = TextAlign.Center,
                     ),
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(28.dp))
+                // Email input field.
                 EmailField(email)
                 Spacer(modifier = Modifier.height(28.dp))
+                // Password input field.
                 PasswordField(password)
                 Spacer(modifier = Modifier.height(28.dp))
-
+                // Button triggering login.
                 Button(onClick = { authViewModel.login(email.value, password.value) }) {
                     Text(text = "Login")
                 }
                 Spacer(modifier = Modifier.height(28.dp))
+                // Button to navigate to sign up.
                 TextButton(onClick = { navController.navigate("signup") }) {
                     Text(text = "Don't have an account? Create account")
-
                 }
                 Spacer(modifier = Modifier.height(28.dp))
-
-
             }
-
         }
     }
 }
 
-
+/**
+ * Preview composable function for the Login Screen.
+ *
+ * This preview function wraps the Login Screen in [AuriTheme] for design-time visualization.
+ */
 @Composable
 @Preview
 fun LoginScreenPreview() {
     AuriTheme {
+        // Create a default NavController for preview purposes.
+        LoginScreen(
+            navController = rememberNavController(),
+            authViewModel = AuthViewModel()
+        )
     }
 }
-
