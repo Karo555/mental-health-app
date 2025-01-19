@@ -1,6 +1,5 @@
 package com.edu.auri.frontend.mainmenu
 
-
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,12 +37,24 @@ import com.edu.auri.R
 import com.edu.auri.ui.theme.AuriTheme
 import com.edu.auri.backend.registration.AuthViewModel
 
-
+/**
+ * Composable function for rendering the main home screen.
+ *
+ * This screen includes a bottom navigation bar, welcome message, mood selection items,
+ * a journal preview card, quick action buttons for writing a note or completing an overview,
+ * and a temporary sign-out button.
+ *
+ * @param modifier [Modifier] to be applied to the layout.
+ * @param navController The [NavController] for navigating between screens.
+ * @param authViewModel The [AuthViewModel] instance that manages authentication actions such as signing out.
+ */
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
-
-
-    // Navigation bar
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    authViewModel: AuthViewModel
+) {
+    // Navigation bar with multiple navigation items.
     Scaffold(
         bottomBar = {
             BottomAppBar {
@@ -78,13 +89,11 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                 )
             }
         }
-    )
-    { paddingValues ->
-
+    ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(paddingValues), // Apply the padding values passed as a parameter
+                .padding(paddingValues), // Apply padding values from the Scaffold.
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
@@ -94,7 +103,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                     .height(64.dp)
                     .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
                 horizontalArrangement = Arrangement.Center, // Center horizontally
-                verticalAlignment = Alignment.CenterVertically, // Center vertically
+                verticalAlignment = Alignment.CenterVertically // Center vertically
             ) {
                 Text(
                     text = "Home",
@@ -103,29 +112,30 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                         lineHeight = 23.sp,
                         fontWeight = FontWeight(700),
                         color = Color(0xFF141C24),
-                        textAlign = TextAlign.Center // Center the text within the Text component
+                        textAlign = TextAlign.Center
                     )
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp)) // Add space between elements
+            Spacer(modifier = Modifier.height(16.dp)) // Space between elements
 
             Text(
-                text = "Good afternoon Tim, how are you feeling?", //TODO Global username and  welcome message depending on time of day
+                text = "Good afternoon Tim, how are you feeling?",
+                // TODO: Use global username and update welcome message based on time of day.
                 style = TextStyle(
                     fontSize = 32.sp,
                     lineHeight = 40.sp,
                     fontWeight = FontWeight(700),
                     textAlign = TextAlign.Center
                 ),
-                modifier = Modifier.padding(horizontal = 16.dp) // Add horizontal padding for alignment
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            Spacer(modifier = Modifier.height(44.dp)) // Add space between elements
+            Spacer(modifier = Modifier.height(44.dp))
             Text(
-                text = "What is your current mood?", //TODO Global username and  welcome message depending on time of day
+                text = "What is your current mood?",
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(horizontal = 16.dp) // Add horizontal padding for alignment
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
             Row(
                 modifier = Modifier
@@ -153,19 +163,18 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                     text = "Your Journal \uD83D\uDCD3 ",
                     style = MaterialTheme.typography.headlineMedium
                 )
-            }// Add space between elements
+            }
 
-            Spacer(modifier = Modifier.height(15.dp)) // Add space between elements
+            Spacer(modifier = Modifier.height(15.dp))
             Box(
-                modifier = Modifier
-                    .width(390.dp),
-                contentAlignment = Alignment.Center // Centers content both horizontally and vertically
+                modifier = Modifier.width(390.dp),
+                contentAlignment = Alignment.Center
             ) {
                 Card(
                     modifier = Modifier
                         .width(380.dp)
                         .height(70.dp),
-                ) { // Add a Card component
+                ) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         Text("Today", style = MaterialTheme.typography.bodyMedium)
                         Text(
@@ -190,7 +199,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                     Text("Write a note")
                 }
             }
-            Spacer(modifier = Modifier.height(24.dp)) // Add space between elements
+            Spacer(modifier = Modifier.height(24.dp))
             Row(
                 modifier = Modifier
                     .width(390.dp)
@@ -202,7 +211,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                     text = "Fill in the day overview \uD83C\uDF16 ",
                     style = MaterialTheme.typography.headlineMedium
                 )
-            }// Add space between elements
+            }
             Row(
                 modifier = Modifier
                     .width(390.dp)
@@ -218,35 +227,39 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController, auth
                     Text("Complete today's overview")
                 }
             }
-            Row (
+            Row(
                 modifier = Modifier
                     .width(390.dp)
                     .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
                 horizontalArrangement = Arrangement.Absolute.Left,
                 verticalAlignment = Alignment.CenterVertically
-            )  {
+            ) {
                 Button(
-                    onClick = {authViewModel.signOut()},
+                    onClick = { authViewModel.signOut() },
                     Modifier.width(310.dp)
                 ) {
                     Text("Sign out TEMPORARY")
-
                 }
             }
-
-            /*Column {
+            /*
+            Column {
                 QuickActionItem("Mood History")
                 QuickActionItem("Gratitude Journal")
                 QuickActionItem("Self-Care Activities")
-            }*/
+            }
+            */
         }
-
-
     }
 }
 
-
-// Navigation bar item
+/**
+ * Composable function that represents a mood selection button.
+ *
+ * This button displays an emoji corresponding to the provided mood label. The mapping between the mood
+ * and its emoji is defined within the function.
+ *
+ * @param mood A [String] representing the mood (e.g., "Happy", "Angry", "Neutral", "Sad").
+ */
 @Composable
 fun MoodItem(mood: String) {
     val moodDictionary = mapOf(
@@ -257,10 +270,11 @@ fun MoodItem(mood: String) {
     )
     Button(
         onClick = { /* Record mood action */ },
-        colors = ButtonDefaults.buttonColors(mood.let {Color(0xFFFFFFFF) }),
+        colors = ButtonDefaults.buttonColors(mood.let { Color(0xFFFFFFFF) }),
         modifier = Modifier.width(76.dp)
     ) {
-        Text( text = "${moodDictionary[mood]}",
+        Text(
+            text = "${moodDictionary[mood]}",
             style = TextStyle(
                 fontSize = 20.sp,
                 lineHeight = 23.sp,
@@ -271,7 +285,14 @@ fun MoodItem(mood: String) {
     }
 }
 
-
+/**
+ * Composable function representing a quick action item in a row layout.
+ *
+ * This function displays a text label along with an arrow icon indicating
+ * that the item can be tapped or navigated to for further details.
+ *
+ * @param actionName A [String] representing the name of the quick action.
+ */
 @Composable
 fun QuickActionItem(actionName: String) {
     Row(
@@ -286,13 +307,27 @@ fun QuickActionItem(actionName: String) {
                 lineHeight = 23.sp,
                 fontWeight = FontWeight(700),
                 textAlign = TextAlign.Start
-            ),
+            )
         )
         Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
     }
 }
 
-
+/**
+ * Preview function for the HomeScreen composable.
+ *
+ * This preview function wraps the HomeScreen in [AuriTheme] for a design-time preview.
+ */
+@Composable
+@Preview
+fun HomeScreenPreview() {
+    AuriTheme {
+        HomeScreen(
+            navController = rememberNavController(),
+            authViewModel = AuthViewModel()
+        )
+    }
+}
 
 //@Preview
 //@Composable
