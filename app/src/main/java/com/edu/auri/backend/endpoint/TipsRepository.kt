@@ -86,5 +86,4 @@ class TipsRepository(
             Result.failure(e)
         }
     }
-
 }

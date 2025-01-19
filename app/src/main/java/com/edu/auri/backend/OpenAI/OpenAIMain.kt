@@ -37,13 +37,20 @@ class OpenAIMain : ComponentActivity() {
             // Start a coroutine on the IO dispatcher
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    // --- 1. Fetch data from Firestore ---
-                    Log.d("FirestoreDebug", "Starting Firestore fetch...")
-                    val userData = dataRepository.fetchUserData("users")
-                    Log.d("FirestoreDebug", "Fetched user data: $userData")
+                    // --- 1. Fetch specific daily log from Firestore ---
+                    // Replace these with your actual user document ID and desired date string.
+                    val userId = "pD2HsHYApKaDJdAhOaQncBvCIym2"
+                    val date = "2024-12-30"
+                    Log.d("FirestoreDebug", "Fetching daily log for user: $userId on date: $date")
+                    val dailyLog = dataRepository.fetchDailyLog(userId, date)
+                    Log.d("FirestoreDebug", "Fetched daily log: $dailyLog")
 
-                    // --- 2. Build a prompt for OpenAI ---
-                    val prompt = "Based on the following user data, provide personalized tips:\n$userData"
+                    // --- 2. Build a prompt for OpenAI using the fetched daily log ---
+                    val prompt = if (dailyLog != null) {
+                        "Based on the following daily log, provide personalized tips:\nDaily Log: $dailyLog"
+                    } else {
+                        "No daily log data available for user: $userId on date: $date."
+                    }
                     Log.d("OpenAIDebug", "Prompt for OpenAI: $prompt")
 
                     // --- 3. Call the OpenAI API using the chat-based endpoint ---
@@ -52,11 +59,7 @@ class OpenAIMain : ComponentActivity() {
 
                     // --- 4. Update the UI on the Main thread ---
                     withContext(Dispatchers.Main) {
-                        if (!openaiResponse.isNullOrEmpty()) {
-                            tvTips.text = openaiResponse
-                        } else {
-                            tvTips.text = "Failed to retrieve a response from OpenAI."
-                        }
+                        tvTips.text = openaiResponse ?: "Failed to retrieve a response from OpenAI."
                         Toast.makeText(this@OpenAIMain, "Data fetched & analyzed", Toast.LENGTH_LONG).show()
                     }
 
@@ -70,4 +73,5 @@ class OpenAIMain : ComponentActivity() {
         }
     }
 }
+
 
