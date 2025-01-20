@@ -53,24 +53,3 @@ suspend fun getDataMoodsFromFirestore ():Mood{
     }
     return mood
 }
-
-
-
-//
-//fun main(){
-//    val fs = Firebase.firestore
-//    val list = mutableStateOf(emptyList<Mood>())
-//    fs.collection("users")
-//        .document("pD2HsHYApKaDJdAhOaQncBvCIym2")
-//        .collection("moods")
-//        .get()
-//        .addOnCompleteListener { task ->
-//
-//            if (task.isSuccessful){
-//                list.value = task.result.toObjects(Mood::class.java)
-//            }
-//        }
-//
-//    println(list)
-//
-//}

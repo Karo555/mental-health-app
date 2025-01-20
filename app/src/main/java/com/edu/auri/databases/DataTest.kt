@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.edu.auri.backend.moodjournal.Mood
+import com.google.firebase.Timestamp
 
 @Composable
 fun MoodScreenTest(viewModel: DataViewModel = viewModel()) {
@@ -24,6 +25,9 @@ fun MoodScreenTest(viewModel: DataViewModel = viewModel()) {
         Text(text = "Mood Data:")
         Text(text = "Mood ID: ${getData.mood}")
         Text(text = "Mood Description: ${getData.notes}")
-        Text(text = "Mood Timestamp: ${getData.timestamp.toString()}")
+        Text(text = "Mood Timestamp: ${getData.timestamp}")
     }
 }
+
+
+fun transformDate(date:Timestamp){}
