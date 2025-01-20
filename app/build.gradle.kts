@@ -71,8 +71,6 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.logging.interceptor)
     implementation(libs.firebase.auth)
-/*    implementation(libs.firebase.kt)*/
-/*    implementation(libs.androidx.recyclerview)*/
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.core.ktx)
@@ -90,6 +88,10 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.ui.text.google.fonts)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.database)
+    implementation(libs.core.ktx)
     implementation(libs.junit.junit)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
