@@ -1,3 +1,5 @@
+import org.apache.tools.ant.util.JavaEnvUtils.VERSION_11
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -47,9 +49,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildToolsVersion = "35.0.0"
 }
 
 dependencies {
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.material3)
     implementation(platform(libs.firebase.bom))
@@ -64,7 +69,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.runtime.livedata)
-
+    implementation(libs.logging.interceptor)
     implementation(libs.firebase.auth)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -87,6 +92,7 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.database)
     implementation(libs.core.ktx)
+    implementation(libs.junit.junit)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

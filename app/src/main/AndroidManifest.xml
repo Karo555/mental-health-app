@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -22,6 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.edu.auri.backend.OpenAI.OpenAIMain"
+            android:exported="true">
+            <!-- The MAIN/LAUNCHER intent-filter makes this the entry point of your app -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver
+            android:name="com.edu.auri.backend.notifications.NotificationReceiver"
+            android:exported="false" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

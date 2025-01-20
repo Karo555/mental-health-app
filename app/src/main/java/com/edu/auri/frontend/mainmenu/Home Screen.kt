@@ -1,6 +1,4 @@
-package com.edu.auri.frontend.mainmenu
-
-
+package com.edu.auri.frontend.menu
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,6 +32,7 @@ import com.edu.auri.frontend.components.BottomBar
 import java.util.Calendar
 
 /**
+
  * The home screen of the app.
  * @param modifier The modifier for the composable.
  * @param navController The navigation controller for the app.
@@ -66,6 +65,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
 
             LazyColumn(
                 modifier = Modifier
+
                     .fillMaxWidth()
                     .padding(paddingValues),
                 verticalArrangement = Arrangement.Top,
@@ -104,8 +104,10 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                             textAlign = TextAlign.Center
                         ),
                         modifier = Modifier.padding(horizontal = 16.dp)
+
                     )
                 }
+
 
                 item { Spacer(modifier = Modifier.height(44.dp)) }
 
@@ -143,6 +145,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                         horizontalArrangement = Arrangement.Absolute.Left,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+     
                         Text(
                             text = "Your Journal \uD83D\uDCD3 ",
                             style = MaterialTheme.typography.headlineMedium
@@ -172,6 +175,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                         }
                     }
                 }
+
 
                 item {
                     Row(
@@ -278,12 +282,19 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
 
 
 
+
         }
     }
 }
 
-
-// Navigation bar item
+/**
+ * Composable function that represents a mood selection button.
+ *
+ * This button displays an emoji corresponding to the provided mood label. The mapping between the mood
+ * and its emoji is defined within the function.
+ *
+ * @param mood A [String] representing the mood (e.g., "Happy", "Angry", "Neutral", "Sad").
+ */
 @Composable
 fun MoodItem(mood: String) {
     val moodDictionary = mapOf(
@@ -294,10 +305,11 @@ fun MoodItem(mood: String) {
     )
     Button(
         onClick = { /* Record mood action */ },
-        colors = ButtonDefaults.buttonColors(mood.let {Color(0xFFFFFFFF) }),
+        colors = ButtonDefaults.buttonColors(mood.let { Color(0xFFFFFFFF) }),
         modifier = Modifier.width(76.dp)
     ) {
-        Text( text = "${moodDictionary[mood]}",
+        Text(
+            text = "${moodDictionary[mood]}",
             style = TextStyle(
                 fontSize = 20.sp,
                 lineHeight = 23.sp,
@@ -308,7 +320,14 @@ fun MoodItem(mood: String) {
     }
 }
 
-
+/**
+ * Composable function representing a quick action item in a row layout.
+ *
+ * This function displays a text label along with an arrow icon indicating
+ * that the item can be tapped or navigated to for further details.
+ *
+ * @param actionName A [String] representing the name of the quick action.
+ */
 @Composable
 fun QuickActionItem(actionName: String) {
     Row(
@@ -323,7 +342,7 @@ fun QuickActionItem(actionName: String) {
                 lineHeight = 23.sp,
                 fontWeight = FontWeight(700),
                 textAlign = TextAlign.Start
-            ),
+            )
         )
         Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
     }

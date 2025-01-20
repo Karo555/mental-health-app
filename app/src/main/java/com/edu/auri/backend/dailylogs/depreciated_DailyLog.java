@@ -1,4 +1,4 @@
 package com.edu.auri.backend.dailylogs;
 
-public class DailyLog {
+public class depreciated_DailyLog {
 }

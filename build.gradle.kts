@@ -15,6 +15,7 @@ buildscript {
         // Add JitPack if you need libraries hosted there (e.g. AnyChart)
      maven { setUrl("https://jitpack.io") }
     }
+
     // If needed, declare classpath for old Gradle usage:
     // dependencies {
     //     classpath "com.android.tools.build:gradle:8.1.0"
