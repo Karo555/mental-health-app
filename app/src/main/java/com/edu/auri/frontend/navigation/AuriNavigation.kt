@@ -11,12 +11,24 @@ import com.edu.auri.frontend.mainmenu.HomeScreen
 import com.edu.auri.frontend.sign_up.RegistrationScreen
 import com.edu.auri.frontend.welcomescreen.WelcomeScreen
 
+/**
+ * Sets up the navigation graph for the Auri application.
+ *
+ * This composable function creates a [NavHost] with defined routes for the Welcome, Home,
+ * Registration (signup), and Login screens. It uses a [NavController] to navigate between
+ * different composable destinations.
+ *
+ * @param modifier A [Modifier] for styling and layout. Defaults to [Modifier].
+ * @param authViewModel The [AuthViewModel] managing authentication, which is passed along to various screens.
+ */
 @Composable
 fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
     val navController = rememberNavController()
 
     NavHost(
-        navController = navController, startDestination = "welcome", builder = {
+        navController = navController,
+        startDestination = "welcome",
+        builder = {
             composable("welcome") {
                 WelcomeScreen(modifier, navController, authViewModel)
             }
@@ -28,9 +40,7 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) 
             }
             composable("login") {
                 LoginScreen(modifier, navController, authViewModel)
-
             }
         }
     )
-
 }
