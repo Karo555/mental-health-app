@@ -1,9 +1,8 @@
 package com.edu.auri.frontend.welcomescreen
 
-import android.annotation.SuppressLint
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,11 +34,20 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.edu.auri.R
+import com.edu.auri.backend.registration.AuthState
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.ui.theme.AuriTheme
 
 @Composable
 fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
+
+    val authState = authViewModel.authState
+    LaunchedEffect(authState.value) {
+        when (authState.value) {
+            is AuthState.Authenticated -> navController.navigate("home")
+            else -> Unit
+        }
+    }
     // Use Box to layer elements
     Surface(
         color = MaterialTheme.colorScheme.background,
@@ -66,7 +75,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
             ) {
                 Spacer(modifier = Modifier.height(140.dp))
                 Text(
-                    text = "Welcome to Auri", //TODO Global username and  welcome message depending on time of day
+                    text = "Welcome to Auri",
                     style = TextStyle(
                         fontSize = 42.sp,
                         lineHeight = 40.sp,
@@ -89,6 +98,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                         fontSize = 16.sp,
                         fontStyle = FontStyle.Italic,
                         fontWeight = FontWeight(700),
+                        color = Color(0xFF141C24),
                     ),
                     textAlign = TextAlign.Center
                 )
@@ -100,7 +110,11 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                     modifier = Modifier.width(200.dp),
                     colors = ButtonDefaults.buttonColors(Color(0xFF141C24)),
                 ) {
-                    Text(text = "Sign up")
+                    Text(text = "Sign up",
+                    style = TextStyle(
+                        color = Color(0xFFFFFFFF),
+                    )
+                    )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -118,7 +132,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { navController.navigate("login") },
+                    onClick = { navController.navigate("MoodScrenTest") },
                     modifier = Modifier
                         .width(200.dp),
                     colors = ButtonDefaults.buttonColors(Color(0XFFFFFFFF)),
@@ -133,20 +147,6 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
             }
         }
 
-    }
-}
-@Preview(showBackground = true)
-@Composable
-fun PreviewWelcomeScreen() {
-    val navController = rememberNavController() // Create a navController for navigation simulation
-    val mockAuthViewModel = AuthViewModel() // Use a mock or actual lightweight AuthViewModel
-
-    AuriTheme { // Ensure consistent styling with the app theme
-        WelcomeScreen(
-            modifier = Modifier,
-            navController = navController,
-            authViewModel = mockAuthViewModel
-        )
     }
 }
 
