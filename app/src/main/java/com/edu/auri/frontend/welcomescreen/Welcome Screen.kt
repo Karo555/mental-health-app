@@ -34,6 +34,17 @@ import com.edu.auri.R
 import com.edu.auri.backend.registration.AuthState
 import com.edu.auri.backend.registration.AuthViewModel
 
+/**
+ * Composable function that renders the welcome screen.
+ *
+ * The WelcomeScreen displays a background image, a welcome message, a subtitle,
+ * and buttons for sign-up and log-in. It observes the authentication state from
+ * the AuthViewModel and navigates to the home screen when the user is authenticated.
+ *
+ * @param modifier A Modifier for styling or layout adjustments.
+ * @param navController The NavController used for navigation between screens.
+ * @param authViewModel The AuthViewModel that manages authentication-related actions.
+ */
 @Composable
 fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel) {
 
