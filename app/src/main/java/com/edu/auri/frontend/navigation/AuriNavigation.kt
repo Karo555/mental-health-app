@@ -2,18 +2,16 @@ package com.edu.auri.frontend.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.databases.MoodScreenTest
-//import com.edu.auri.databases.MoodScreenTest
 import com.edu.auri.frontend.dayoverview.DayOverviewScreen
 import com.edu.auri.frontend.gratitude.GratitudeScreen
 import com.edu.auri.frontend.insights.Insights
 import com.edu.auri.frontend.login.LoginScreen
-import com.edu.auri.frontend.mainmenu.HomeScreen
+import com.edu.auri.frontend.menu.HomeScreen
 import com.edu.auri.frontend.moodjournal.MoodJournal
 import com.edu.auri.frontend.setttings.SettingsScreen
 import com.edu.auri.frontend.sign_up.RegistrationScreen

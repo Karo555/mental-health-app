@@ -53,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.mpandroidchart)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -92,7 +93,7 @@ dependencies {
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.database)
     implementation(libs.core.ktx)
-    implementation(libs.junit.junit)
+    implementation(libs.junit)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

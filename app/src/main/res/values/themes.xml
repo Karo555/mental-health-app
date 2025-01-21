@@ -2,4 +2,5 @@
 <resources>
 
     <style name="Theme.Auri" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="LogDailyActivityTheme" parent="Theme.MaterialComponents.Light.NoActionBar"/>
 </resources>

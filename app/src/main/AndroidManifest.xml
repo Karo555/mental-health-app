@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,8 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Auri"
-        tools:targetApi="31">
+        android:theme="@style/Theme.Auri">
+<!--        tools:targetApi="31">-->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,6 +25,30 @@
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name="com.edu.auri.backend.charts.ChartActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat">
+            <!-- The MAIN/LAUNCHER intent-filter makes this the entry point of your app -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.edu.auri.backend.dailylogs.LogDailyActivity"
+            android:exported="true"
+            android:theme="@style/LogDailyActivityTheme">
+            <!-- The MAIN/LAUNCHER intent-filter makes this the entry point of your app -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <activity
             android:name="com.edu.auri.backend.OpenAI.OpenAIMain"
             android:exported="true">
@@ -33,10 +58,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver
             android:name="com.edu.auri.backend.notifications.NotificationReceiver"
             android:exported="false" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
