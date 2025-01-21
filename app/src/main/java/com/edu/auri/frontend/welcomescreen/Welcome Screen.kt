@@ -128,7 +128,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
-                    onClick = { navController.navigate("MoodScrenTest") },
+                    onClick = { navController.navigate("login") },
                     modifier = Modifier
                         .width(200.dp),
                     colors = ButtonDefaults.buttonColors(Color(0XFFFFFFFF)),

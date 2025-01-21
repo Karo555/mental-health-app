@@ -58,15 +58,15 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) 
                 GratitudeScreen(navController)
             }
             composable("dayoverview") {
-                DayOverviewScreen()
+                DayOverviewScreen(modifier, navController)
             }
 
             composable("Journal") {
                 MoodJournal(modifier, navController, auth = FirebaseAuth.getInstance()) // recheck
             }
-            composable("MoodScrenTest") {
+/*            composable("MoodScrenTest") {
                 MoodScreenTest()
-            }
+            }*/
         }
     )
 }

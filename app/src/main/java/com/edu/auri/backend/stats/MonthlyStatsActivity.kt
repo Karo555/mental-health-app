@@ -1,4 +1,4 @@
-/*
+package com.edu.auri.backend.stats/*
 package com.edu.auri.databases
 import android.os.Bundle
 import android.widget.Button
