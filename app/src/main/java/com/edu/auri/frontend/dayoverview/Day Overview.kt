@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,13 +14,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,10 +37,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavController) {
-
     var mood by remember { mutableStateOf("") }
     var sleepHours by remember { mutableStateOf(0f) }
     var gratification by remember { mutableStateOf(0f) }
@@ -46,8 +49,8 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
     var workoutTime by remember { mutableStateOf(0f) }
     var angerLevel by remember { mutableStateOf(0f) }
 
-
     Scaffold(
+
     ) { paddingValues ->
         Surface(
             color = MaterialTheme.colorScheme.background,
@@ -56,10 +59,11 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                 .padding(paddingValues)
         ) {
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Top,
-                horizontalAlignment = Alignment.Start
+                modifier = Modifier.fillMaxSize()
+                    .padding(paddingValues),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
+
                 item {
                     Row(
                         modifier = Modifier
@@ -67,8 +71,7 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                             .height(64.dp)
                             .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
                         horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             text = "Day Overview",
@@ -80,43 +83,27 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                             )
                         )
                     }
-
-
-                }
-                item { Spacer(modifier = Modifier.height(26.dp)) }
-
-                item {
-                    Row(
-                        modifier = Modifier
-                            .width(390.dp)
-                            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
-                        horizontalArrangement = Arrangement.Absolute.Left,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Let's complete a day overview ",
-                            style = MaterialTheme.typography.headlineSmall
-                        )
-                    }
                 }
 
 
-                item { Text(text = "Mood: $mood", style = MaterialTheme.typography.headlineSmall) }
-                item { DropdownMenuExample(selectedMood = mood, onMoodSelected = { mood = it }) }
-
-                item { Spacer(modifier = Modifier.height(16.dp)) }
                 item {
+                    SectionTitle(title = "Mood")
+                    DropdownMenuExample(selectedMood = mood, onMoodSelected = { mood = it })
+                }
 
+                item {
+                    SectionTitle(title = "Sleep Hours")
                     SliderItem(
-                        label = "Sleep Hours",
+                        label = "Hours",
                         value = sleepHours,
                         valueRange = 0f..12f,
                         step = 1f,
                         onValueChange = { sleepHours = it }
                     )
                 }
-                item {
 
+                item {
+                    SectionTitle(title = "Gratification")
                     SliderItem(
                         label = "Gratification",
                         value = gratification,
@@ -125,56 +112,74 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                         onValueChange = { gratification = it }
                     )
                 }
+
                 item {
+                    SectionTitle(title = "Stress Level")
                     SliderItem(
-                        label = "Stress Level",
+                        label = "Stress",
                         value = stressLevel,
                         valueRange = 0f..10f,
                         step = 1f,
                         onValueChange = { stressLevel = it }
                     )
                 }
+
                 item {
+                    SectionTitle(title = "Anxiety Level")
                     SliderItem(
-                        label = "Anxiety Level",
+                        label = "Anxiety",
                         value = anxietyLevel,
                         valueRange = 0f..10f,
                         step = 1f,
                         onValueChange = { anxietyLevel = it }
                     )
                 }
-                item {
 
+                item {
+                    SectionTitle(title = "Water Intake")
                     SliderItem(
-                        label = "Liters of Water",
+                        label = "Liters",
                         value = waterIntake,
-                        valueRange = 0f..5f,
+                        valueRange = 0f..3f,
                         step = 0.1f,
                         onValueChange = { waterIntake = it }
                     )
                 }
-                item {
 
+                item {
+                    SectionTitle(title = "Workout Time")
                     SliderItem(
-                        label = "Workout Time (min)",
+                        label = "Minutes",
                         value = workoutTime,
                         valueRange = 0f..120f,
                         step = 1f,
                         onValueChange = { workoutTime = it }
                     )
                 }
-                item{
-                SliderItem(
-                    label = "Anger Level",
-                    value = angerLevel,
-                    valueRange = 0f..10f,
-                    step = 1f,
-                    onValueChange = { angerLevel = it }
-                )
+
+                item {
+                    SectionTitle(title = "Anger Level")
+                    SliderItem(
+                        label = "Anger",
+                        value = angerLevel,
+                        valueRange = 0f..10f,
+                        step = 1f,
+                        onValueChange = { angerLevel = it }
+                    )
+                }
             }
         }
     }
 }
+
+@Composable
+fun SectionTitle(title: String) {
+    Text(
+        text = title,
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier.padding(bottom = 8.dp)
+    )
 }
 
 @Composable
@@ -190,7 +195,11 @@ fun SliderItem(
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
-        Text(text = "$label: ${if (step == 1f) value.toInt() else String.format("%.1f", value)}")
+        Text(
+            text = "$label: ${if (step == 1f) value.toInt() else String.format("%.1f", value)}",
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface
+        )
         Slider(
             value = value,
             onValueChange = onValueChange,
@@ -209,22 +218,24 @@ fun DropdownMenuExample(
     var expanded by remember { mutableStateOf(false) }
     val moods = listOf("Happy", "Sad", "Angry", "Relaxed")
 
-    Box(modifier = Modifier.fillMaxWidth()) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(8.dp)
+    ) {
         Text(
-            text = selectedMood,
+            text = selectedMood.ifEmpty { "Select Mood" },
             modifier = Modifier
                 .clickable { expanded = true }
                 .padding(16.dp)
-                .background(MaterialTheme.colorScheme.surface)
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         DropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.surface)
-                .fillMaxWidth()
+            onDismissRequest = { expanded = false }
         ) {
             moods.forEach { mood ->
                 DropdownMenuItem(
@@ -238,4 +249,3 @@ fun DropdownMenuExample(
         }
     }
 }
-
