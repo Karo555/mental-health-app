@@ -6,12 +6,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
@@ -167,10 +169,29 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                         onValueChange = { angerLevel = it }
                     )
                 }
+                item { Spacer(modifier = Modifier.height(24.dp)) }
+                item{
+                    Row(
+                        modifier = Modifier
+                            .width(390.dp)
+                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+                        horizontalArrangement = Arrangement.Absolute.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Button(
+                            onClick = { /*TODO*/ },
+                            Modifier.width(310.dp)
+                        ) {
+                            Text("Save data")
+                        }
+                    }
+                }
+
+            }
             }
         }
     }
-}
+
 
 @Composable
 fun SectionTitle(title: String) {
