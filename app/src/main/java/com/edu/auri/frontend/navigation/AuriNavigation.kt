@@ -2,7 +2,6 @@ package com.edu.auri.frontend.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,7 +12,7 @@ import com.edu.auri.frontend.dayoverview.DayOverviewScreen
 import com.edu.auri.frontend.gratitude.GratitudeScreen
 import com.edu.auri.frontend.insights.Insights
 import com.edu.auri.frontend.login.LoginScreen
-import com.edu.auri.frontend.mainmenu.HomeScreen
+import com.edu.auri.frontend.menu.HomeScreen
 import com.edu.auri.frontend.moodjournal.MoodJournal
 import com.edu.auri.frontend.setttings.SettingsScreen
 import com.edu.auri.frontend.sign_up.RegistrationScreen
@@ -60,15 +59,15 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) 
                 GratitudeScreen(navController)
             }
             composable("dayoverview") {
-                DayOverviewScreen()
+                DayOverviewScreen(modifier, navController)
             }
 
             composable("Journal") {
                 MoodJournal(modifier, navController, auth = FirebaseAuth.getInstance()) // recheck
             }
-            composable("MoodScrenTest") {
+/*            composable("MoodScrenTest") {
                 MoodScreenTest()
-            }
+            }*/
         }
     )
 }
