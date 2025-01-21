@@ -123,8 +123,7 @@ fun WelcomeScreen(modifier: Modifier = Modifier, navController: NavController, a
                         fontSize = 15.sp,
                         fontStyle = FontStyle.Normal,
                     ),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.clickable { /* Handle log-in action */ }
+                    textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(

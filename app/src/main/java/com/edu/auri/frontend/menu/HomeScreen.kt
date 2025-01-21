@@ -222,7 +222,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                         verticalAlignment = Alignment.Top,
                     ) {
                         Button(
-                            onClick = { /* Record mood action */ },
+                            onClick = { navController.navigate("overview") },
                             Modifier.width(310.dp)
                         ) {
                             Text("Complete today's overview")
@@ -243,38 +243,6 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                             Modifier.width(310.dp)
                         ) {
                             Text("Sign out TEMPORARY")
-                        }
-                    }
-                }
-                item {
-                    Row(
-                        modifier = Modifier
-                            .width(390.dp)
-                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
-                        horizontalArrangement = Arrangement.Absolute.Left,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Button(
-                            onClick = { navController.navigate("Journal") },
-                            Modifier.width(310.dp)
-                        ) {
-                            Text("Journal")
-                        }
-                    }
-                }
-                item {
-                    Row(
-                        modifier = Modifier
-                            .width(390.dp)
-                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
-                        horizontalArrangement = Arrangement.Absolute.Left,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Button(
-                            onClick = { navController.navigate("MoodScrenTest") },
-                            Modifier.width(310.dp)
-                        ) {
-                            Text("Journal")
                         }
                     }
                 }
