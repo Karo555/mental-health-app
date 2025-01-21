@@ -14,10 +14,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.edu.auri.backend.notifications.NotificationReceiver
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.navigation.AuriNavigation
 import com.edu.auri.ui.theme.AuriTheme
-import com.edu.auri.backend.notifications.NotificationReceiver
 import java.util.Calendar
 
 

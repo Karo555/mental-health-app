@@ -7,7 +7,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.databases.MoodScreenTest
-//import com.edu.auri.databases.MoodScreenTest
 import com.edu.auri.frontend.dayoverview.DayOverviewScreen
 import com.edu.auri.frontend.gratitude.GratitudeScreen
 import com.edu.auri.frontend.insights.Insights
