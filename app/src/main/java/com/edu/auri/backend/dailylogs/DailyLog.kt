@@ -1,11 +1,12 @@
 package com.edu.auri.backend.dailylogs
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
 
 /**
  * Data class representing a daily log entry containing various health and lifestyle metrics.
  *
- * Each instance of [DailyLogDataClass] encapsulates information recorded in a single day, such as
+ * Each instance of [DailyLog] encapsulates information recorded in a single day, such as
  * consumption of substances, sleep hours, social interactions, and physical activities.
  *
  * @property alcohol The recorded amount or score related to alcohol consumption.
@@ -24,20 +25,20 @@ import com.google.firebase.Timestamp
  * @property timestamp The [Timestamp] indicating when the log was recorded.
  * @property workoutTime The duration of the workout in minutes.
  */
-data class DailyLogDataClass(
-    val alcohol: Int? = null,
-    val angerLevel: Int? = null,
-    val anxietyLevel: Int? = null,
-    val cigarettes: Int? = null,
-    val cupsOfCoffee: Int? = null,
+data class DailyLog(
+    val alcohol: Float? = null,
+    val angerLevel: Float? = null,
+    val anxietyLevel: Float? = null,
+    val cigarettes: Float? = null,
+    val cupsOfCoffee: Float? = null,
     val drugs: Boolean? = null,
-    val gratification: Int? = null,
-    val litersOfWater: Int? = null,
+    val gratification: Float? = null,
+    val waterIntake: Float? = null,
     val mood: String? = null,
-    val sleepHours: Int? = null,
-    val socialInteractions: Int? = null,
-    val stressLevel: Int? = null,
-    val sweets: Int? = null,
-    val timestamp: Timestamp? = null,
-    val workoutTime: Int? = null
+    val sleepHours: Float? = null,
+    val socialInteractions: Float? = null,
+    val stressLevel: Float? = null,
+    val sweets: Float? = null,
+    @ServerTimestamp val timestamp: Timestamp? = null,
+    val workoutTime: Float? = null
 )

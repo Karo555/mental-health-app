@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.edu.auri.backend.dailylogs.LogDailyViewModel
 import com.edu.auri.backend.notifications.NotificationReceiver
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.navigation.AuriNavigation
@@ -46,12 +47,14 @@ class MainActivity : ComponentActivity() {
         scheduleDailyNotification()
         enableEdgeToEdge()
         val authViewModel: AuthViewModel by viewModels()
+        val logDailyViewModel: LogDailyViewModel by viewModels()
         setContent {
             AuriTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AuriNavigation(
                         modifier = Modifier.padding(innerPadding),
-                        authViewModel = authViewModel
+                        authViewModel = authViewModel,
+                        logDailyViewModel = logDailyViewModel
                     )
                 }
             }

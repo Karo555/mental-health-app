@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.edu.auri.backend.dailylogs.LogDailyViewModel
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.databases.MoodScreenTest
 import com.edu.auri.frontend.dayoverview.DayOverviewScreen
@@ -29,7 +30,7 @@ import com.google.firebase.auth.FirebaseAuth
  * @param authViewModel The [AuthViewModel] managing authentication, which is passed along to various screens.
  */
 @Composable
-fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
+fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, logDailyViewModel: LogDailyViewModel) {
     val navController = rememberNavController()
 
     NavHost(
@@ -58,7 +59,7 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel) 
                 GratitudeScreen(navController)
             }
             composable("dayoverview") {
-                DayOverviewScreen(modifier, navController)
+                DayOverviewScreen(modifier, navController, logDailyViewModel)
             }
 
             composable("Journal") {

@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import com.edu.auri.R
-import com.edu.auri.backend.dailylogs.DailyLogDataClass
+import com.edu.auri.backend.dailylogs.DailyLog
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.data.Entry
@@ -74,7 +74,7 @@ class ChartActivity : AppCompatActivity() {
             .addOnSuccessListener { querySnapshot ->
                 Log.d(TAG, "Fetched ${querySnapshot.size()} documents from Firestore.")
                 val logs = querySnapshot.documents.mapNotNull { doc ->
-                    doc.toObject(DailyLogDataClass::class.java)
+                    doc.toObject(DailyLog::class.java)
                 }
                 // Group by week (using year-week as key)
                 val weeklyData = groupLogsByWeek(logs, metric)
@@ -92,7 +92,7 @@ class ChartActivity : AppCompatActivity() {
      * @param metric The metric to compute (field names should match DailyLogDataClass numeric properties).
      * @return A map where the key is a string representing the week (e.g., "2025-W03") and the value is the average metric value.
      */
-    private fun groupLogsByWeek(logs: List<DailyLogDataClass>, metric: String): Map<String, Float> {
+    private fun groupLogsByWeek(logs: List<DailyLog>, metric: String): Map<String, Float> {
         val weeklyMap = mutableMapOf<String, MutableList<Float>>()
 
         for (log in logs) {

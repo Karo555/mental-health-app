@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +35,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.edu.auri.backend.dailylogs.DailyLog
+import com.edu.auri.backend.dailylogs.LogDailyViewModel
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
+
 /**
  * A composable function that displays the day overview screen.
  *
@@ -41,7 +47,8 @@ import androidx.navigation.NavController
  * @param navController The navigation controller to be used for navigation.
  */
 @Composable
-fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavController) {
+fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavController,
+                      logDailyViewModel: LogDailyViewModel) {
     var mood by remember { mutableStateOf("") }
     var sleepHours by remember { mutableStateOf(0f) }
     var gratification by remember { mutableStateOf(0f) }
@@ -54,9 +61,25 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
     var cigarettes by remember { mutableStateOf(0f) }
     var sweets by remember { mutableStateOf(0f) }
     var cupsOfCoffee by remember { mutableStateOf(0f) }
+    var socialIneractions by remember { mutableStateOf(0f) }
     var drugs by remember { mutableStateOf(false) }
 
-
+    var dailyLog = DailyLog(
+        mood = mood,
+        sleepHours = sleepHours,
+        gratification = gratification,
+        stressLevel = stressLevel,
+        anxietyLevel = anxietyLevel,
+        waterIntake = waterIntake,
+        workoutTime = workoutTime,
+        angerLevel = angerLevel,
+        alcohol = alcohol,
+        cigarettes = cigarettes,
+        sweets = sweets,
+        socialInteractions = socialIneractions,
+        cupsOfCoffee = cupsOfCoffee,
+        drugs = drugs
+    )
     Scaffold(
 
     ) { paddingValues ->
@@ -176,9 +199,13 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                     )
                 }
                 item {
-                    SectionTitle(title = "Drugs")
-
+                    Column {
+                        SectionTitle(title = "Drugs")
+                        Text(text = "Select if this applies to you")
+                        Checkbox(checked = drugs, onCheckedChange = { drugs = it })
+                    }
                 }
+
                 item {
                     SectionTitle(title = "Alcohol")
                     SliderItem(
@@ -197,6 +224,16 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                         valueRange = 0f..10f,
                         step = 1f,
                         onValueChange = { cigarettes = it }
+                    )
+                }
+                item {
+                    SectionTitle(title = "Social interactions")
+                    SliderItem(
+                        label = "Minutes spent",
+                        value = socialIneractions,
+                        valueRange = 0f..130f,
+                        step = 1f,
+                        onValueChange = { socialIneractions = it }
                     )
                 }
                 item {
@@ -229,7 +266,7 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Button(
-                            onClick = { /*TODO*/ },
+                            onClick = {logDailyViewModel.saveDailyLog(dailyLog)},
                             Modifier.width(310.dp)
                         ) {
                             Text("Save data")

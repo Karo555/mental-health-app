@@ -1,7 +1,7 @@
 package com.edu.auri.backend.OpenAI
 
 import android.util.Log
-import com.edu.auri.backend.dailylogs.DailyLogDataClass
+import com.edu.auri.backend.dailylogs.DailyLog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -44,15 +44,15 @@ class DataRepository(
      *
      * This method navigates to the "daily_logs" subcollection of the specified user and retrieves
      * the document corresponding to the provided [date]. If the document exists, it converts the
-     * data into a [DailyLogDataClass] object. If the document does not exist or an error occurs,
+     * data into a [DailyLog] object. If the document does not exist or an error occurs,
      * the method returns `null`.
      *
      * @param userId the identifier of the user whose daily log is being fetched.
      * @param date the date string representing the specific day for which to retrieve the log.
-     * @return an instance of [DailyLogDataClass] if the document exists and conversion is successful;
+     * @return an instance of [DailyLog] if the document exists and conversion is successful;
      *         otherwise, `null`.
      */
-    suspend fun fetchDailyLog(userId: String, date: String): DailyLogDataClass? {
+    suspend fun fetchDailyLog(userId: String, date: String): DailyLog? {
         return try {
             // Navigate to the specific document in the "daily_logs" subcollection
             val docSnapshot = firestore.collection("users")
@@ -67,7 +67,7 @@ class DataRepository(
             if (docSnapshot.exists()) {
                 Log.d("FirestoreDebug", "Daily log found for user: $userId on date: $date")
                 // Convert the snapshot into your DailyLogDataClass
-                docSnapshot.toObject(DailyLogDataClass::class.java)
+                docSnapshot.toObject(DailyLog::class.java)
             } else {
                 Log.d("FirestoreDebug", "No daily log found for user: $userId on date: $date")
                 null
@@ -82,14 +82,14 @@ class DataRepository(
      * Fetches all daily logs for the specified user.
      *
      * The method retrieves all documents from the "daily_logs" subcollection for the given [userId]
-     * and converts them into a list of [DailyLogDataClass] objects. If an error occurs during the
+     * and converts them into a list of [DailyLog] objects. If an error occurs during the
      * fetch operation, an empty list is returned.
      *
      * @param userId the identifier of the user whose daily logs are to be fetched.
-     * @return a [List] of [DailyLogDataClass] instances representing the daily logs,
+     * @return a [List] of [DailyLog] instances representing the daily logs,
      *         or an empty list if an error occurs.
      */
-    suspend fun fetchAllDailyLogs(userId: String): List<DailyLogDataClass> {
+    suspend fun fetchAllDailyLogs(userId: String): List<DailyLog> {
         return try {
             val snapshot = firestore.collection("users")
                 .document(userId)
@@ -97,7 +97,7 @@ class DataRepository(
                 .get()
                 .await()
             Log.d("FirestoreDebug", "Fetched ${snapshot.documents.size} daily logs for user: $userId")
-            snapshot.documents.mapNotNull { it.toObject(DailyLogDataClass::class.java) }
+            snapshot.documents.mapNotNull { it.toObject(DailyLog::class.java) }
         } catch (e: Exception) {
             Log.e("DataRepository", "Error fetching daily logs: ${e.message}", e)
             emptyList()
