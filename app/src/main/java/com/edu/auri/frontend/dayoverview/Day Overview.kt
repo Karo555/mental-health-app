@@ -50,6 +50,12 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
     var waterIntake by remember { mutableStateOf(0f) }
     var workoutTime by remember { mutableStateOf(0f) }
     var angerLevel by remember { mutableStateOf(0f) }
+    var alcohol by remember { mutableStateOf(0f) }
+    var cigarettes by remember { mutableStateOf(0f) }
+    var sweets by remember { mutableStateOf(0f) }
+    var cupsOfCoffee by remember { mutableStateOf(0f) }
+    var drugs by remember { mutableStateOf(false) }
+
 
     Scaffold(
 
@@ -167,6 +173,50 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                         valueRange = 0f..10f,
                         step = 1f,
                         onValueChange = { angerLevel = it }
+                    )
+                }
+                item {
+                    SectionTitle(title = "Drugs")
+
+                }
+                item {
+                    SectionTitle(title = "Alcohol")
+                    SliderItem(
+                        label = "Liters",
+                        value = alcohol,
+                        valueRange = 0f..1f,
+                        step = 0.1f,
+                        onValueChange = { alcohol = it }
+                    )
+                }
+                item {
+                    SectionTitle(title = "Cigarettes")
+                    SliderItem(
+                        label = "Packs",
+                        value = cigarettes,
+                        valueRange = 0f..10f,
+                        step = 1f,
+                        onValueChange = { cigarettes = it }
+                    )
+                }
+                item {
+                    SectionTitle(title = "Sweets")
+                    SliderItem(
+                        label = "Sweets",
+                        value = sweets,
+                        valueRange = 0f..10f,
+                        step = 1f,
+                        onValueChange = { sweets = it }
+                    )
+                }
+                item {
+                    SectionTitle(title = "Cups of Coffee")
+                    SliderItem(
+                        label = "Cups",
+                        value = cupsOfCoffee,
+                        valueRange = 0f..5f,
+                        step = 1f,
+                        onValueChange = { cupsOfCoffee = it }
                     )
                 }
                 item { Spacer(modifier = Modifier.height(24.dp)) }
