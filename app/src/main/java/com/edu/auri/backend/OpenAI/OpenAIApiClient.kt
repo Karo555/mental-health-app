@@ -53,7 +53,7 @@ object OpenAIClient {
      */
     private val retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(OpenAIApiService.BASE_URL) // Expected to be "https://api.openai.com/"
+            .baseUrl(OpenAIApiService.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()

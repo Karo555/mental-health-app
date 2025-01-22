@@ -66,13 +66,6 @@ class LogDailyActivity : AppCompatActivity() {
 
     /**
      * Called when the activity is starting.
-     *
-     * This method initializes the UI, sets up event listeners for various components,
-     * and validates that the user is logged in before allowing data entry. If the user
-     * is not logged in, a toast is displayed and the activity is finished.
-     *
-     * @param savedInstanceState If the activity is being re-initialized after previously being
-     * closed, this Bundle contains the data it most recently supplied.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +77,7 @@ class LogDailyActivity : AppCompatActivity() {
             finish()
         }
 
+        // Initialize Firebase instances
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
@@ -106,10 +100,7 @@ class LogDailyActivity : AppCompatActivity() {
     }
 
     /**
-     * Initializes the UI components by binding them to their corresponding views.
-     *
-     * This method locates each UI element defined in the XML layout and assigns them to
-     * the appropriate properties for later use.
+     * Initializes the UI components.
      */
     private fun initUI() {
         // Sleep
@@ -158,10 +149,7 @@ class LogDailyActivity : AppCompatActivity() {
     }
 
     /**
-     * Sets up the mood spinner with predefined mood options.
-     *
-     * The spinner is configured with a list of moods such as "Happy", "Neutral", "Sad", "Angry",
-     * and "Anxious". An [ArrayAdapter] is used to bind the list data to the spinner.
+     * Sets up the mood spinner with predefined options.
      */
     private fun setupMoodSpinner() {
         val moodOptions = listOf("Happy", "Neutral", "Sad", "Angry", "Anxious")
@@ -172,42 +160,32 @@ class LogDailyActivity : AppCompatActivity() {
 
     /**
      * Sets up listeners for the sliders to update their corresponding TextViews.
-     *
-     * When the slider values change, the associated TextView is updated in real time to reflect
-     * the selected value. Each slider is customized to display an appropriate unit (e.g., "h" for
-     * sleep hours, "L" for water, "min" for workout time).
      */
     private fun setupSliderListeners() {
         // Sleep slider listener
         sliderSleep.addOnChangeListener { _, value, _ ->
             tvSleepValue.text = "Selected: ${value.toInt()}h"
         }
-
         // Gratification slider listener
         sliderGratification.addOnChangeListener { _, value, _ ->
             tvGratificationValue.text = "Selected: ${value.toInt()}"
         }
-
         // Stress slider listener
         sliderStress.addOnChangeListener { _, value, _ ->
             tvStressValue.text = "Selected: ${value.toInt()}"
         }
-
         // Anxiety slider listener
         sliderAnxiety.addOnChangeListener { _, value, _ ->
             tvAnxietyValue.text = "Selected: ${value.toInt()}"
         }
-
         // Water slider listener
         sliderWater.addOnChangeListener { _, value, _ ->
             tvWaterValue.text = "Selected: ${value} L"
         }
-
         // Workout slider listener
         sliderWorkout.addOnChangeListener { _, value, _ ->
             tvWorkoutValue.text = "Selected: ${value.toInt()} min"
         }
-
         // Anger slider listener
         sliderAnger.addOnChangeListener { _, value, _ ->
             tvAngerValue.text = "Selected: ${value.toInt()}"
@@ -217,15 +195,13 @@ class LogDailyActivity : AppCompatActivity() {
     /**
      * Saves the daily log data to Firestore.
      *
-     * This method reads the current values from the UI components (sliders, switch, spinner, and
-     * EditTexts), compiles them into a map, and saves the data as a new document in the user's
-     * "daily_logs" subcollection. The document ID is set as today's date in the format "yyyy-MM-dd".
-     * A success or failure message is displayed based on the outcome.
+     * The log is saved under the current user's document subcollection "dailyLogs",
+     * using today's date (in "yyyy-MM-dd" format) as the document ID.
      */
     private fun saveDailyData() {
         val user = auth.currentUser ?: return
 
-        // Retrieve float values from sliders.
+        // Retrieve values from UI components.
         val sleepHours = sliderSleep.value
         val gratification = sliderGratification.value
         val stress = sliderStress.value
@@ -234,24 +210,20 @@ class LogDailyActivity : AppCompatActivity() {
         val workout = sliderWorkout.value
         val anger = sliderAnger.value
 
-        // Retrieve value from switch.
         val tookDrugs = switchDrugs.isChecked
-
-        // Retrieve selected mood from spinner.
         val selectedMood = spinnerMood.selectedItem.toString()
 
-        // Retrieve int values from EditTexts.
         val social = etSocial.text.toString().toIntOrNull() ?: 0
         val sweets = etSweets.text.toString().toIntOrNull() ?: 0
         val coffee = etCoffee.text.toString().toIntOrNull() ?: 0
         val alcohol = etAlcohol.text.toString().toIntOrNull() ?: 0
         val cigarettes = etCigarettes.text.toString().toIntOrNull() ?: 0
 
-        // Create a document ID based on today's date (format: yyyy-MM-dd).
+        // Create a document ID based on today's date (e.g., "2025-01-22").
         val todayString = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             .format(System.currentTimeMillis())
 
-        // Construct the daily log data as a map.
+        // Prepare the daily log data.
         val dailyData = hashMapOf(
             "mood" to selectedMood,
             "sleepHours" to sleepHours,
@@ -270,18 +242,45 @@ class LogDailyActivity : AppCompatActivity() {
             "timestamp" to FieldValue.serverTimestamp()
         )
 
-        // Save the daily log data to Firestore under the user's document.
-        firestore.collection("users")
-            .document(user.uid)
-            .collection("daily_logs")
-            .document(todayString)
-            .set(dailyData)
-            .addOnSuccessListener {
-                Toast.makeText(this, "Daily data saved!", Toast.LENGTH_SHORT).show()
-                finish()
+        // Reference to the parent user document.
+        val userDocRef = firestore.collection("users").document(user.uid)
+
+        // Ensure the user document exists before writing the daily log.
+        userDocRef.get().addOnSuccessListener { document ->
+            if (!document.exists()) {
+                val userData = hashMapOf(
+                    "email" to user.email,
+                    "displayName" to user.displayName,
+                    "createdAt" to FieldValue.serverTimestamp()
+                )
+                userDocRef.set(userData).addOnCompleteListener {
+                    // Once the user document is created, write the daily log.
+                    userDocRef.collection("dailyLogs")
+                        .document(todayString)
+                        .set(dailyData)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "Daily data saved!", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            } else {
+                // User document exists—write the daily log directly.
+                userDocRef.collection("dailyLogs")
+                    .document(todayString)
+                    .set(dailyData)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Daily data saved!", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
             }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+        }.addOnFailureListener { e ->
+            Toast.makeText(this, "Error checking user doc: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
     }
 }
