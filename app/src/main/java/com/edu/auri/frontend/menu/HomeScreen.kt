@@ -222,7 +222,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                         verticalAlignment = Alignment.Top,
                     ) {
                         Button(
-                            onClick = { navController.navigate("overview") },
+                            onClick = { navController.navigate("dayoverview") },
                             Modifier.width(310.dp)
                         ) {
                             Text("Complete today's overview")
