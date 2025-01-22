@@ -176,7 +176,6 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                     }
                 }
 
-
                 item {
                     Row(
                         modifier = Modifier
@@ -247,10 +246,6 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                     }
                 }
             }
-
-
-
-
         }
     }
 }
