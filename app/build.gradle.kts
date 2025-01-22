@@ -1,14 +1,29 @@
-import org.apache.tools.ant.util.JavaEnvUtils.VERSION_11
+import java.util.Properties
+
+fun getApiKey(): String {
+    val propertiesFile = rootProject.file("local.properties")
+    val properties = Properties()
+    if (propertiesFile.exists()) {
+        propertiesFile.inputStream().use { stream ->
+            properties.load(stream)
+        }
+        return properties.getProperty("OPENAI_API_KEY", "")
+    } else {
+        return ""
+    }
+}
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+//    id("com.android.library")
     id("com.google.gms.google-services")
 
 }
 
 android {
+    buildFeatures.buildConfig = true
     namespace = "com.edu.auri"
     compileSdk = 35
 
@@ -18,8 +33,9 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "OPENAI_API_KEY", "\"${getApiKey()}\"")
     }
 
     buildTypes {
