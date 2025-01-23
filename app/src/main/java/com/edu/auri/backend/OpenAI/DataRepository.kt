@@ -42,7 +42,7 @@ class DataRepository(
     /**
      * Fetches a specific daily log for the given user and date.
      *
-     * This method navigates to the "daily_logs" subcollection of the specified user and retrieves
+     * This method navigates to the "dailyLogs" subcollection of the specified user and retrieves
      * the document corresponding to the provided [date]. If the document exists, it converts the
      * data into a [DailyLog] object. If the document does not exist or an error occurs,
      * the method returns `null`.
@@ -54,10 +54,10 @@ class DataRepository(
      */
     suspend fun fetchDailyLog(userId: String, date: String): DailyLog? {
         return try {
-            // Navigate to the specific document in the "daily_logs" subcollection
+            // Navigate to the specific document in the "dailyLogs" subcollection under the user document
             val docSnapshot = firestore.collection("users")
                 .document(userId)
-                .collection("daily_logs")
+                .collection("dailyLogs")
                 .document(date)
                 .get()
                 .await()
@@ -66,7 +66,7 @@ class DataRepository(
 
             if (docSnapshot.exists()) {
                 Log.d("FirestoreDebug", "Daily log found for user: $userId on date: $date")
-                // Convert the snapshot into your DailyLogDataClass
+                // Convert the snapshot into your DailyLog data class
                 docSnapshot.toObject(DailyLog::class.java)
             } else {
                 Log.d("FirestoreDebug", "No daily log found for user: $userId on date: $date")
@@ -81,7 +81,7 @@ class DataRepository(
     /**
      * Fetches all daily logs for the specified user.
      *
-     * The method retrieves all documents from the "daily_logs" subcollection for the given [userId]
+     * The method retrieves all documents from the "dailyLogs" subcollection for the given [userId]
      * and converts them into a list of [DailyLog] objects. If an error occurs during the
      * fetch operation, an empty list is returned.
      *
@@ -93,7 +93,7 @@ class DataRepository(
         return try {
             val snapshot = firestore.collection("users")
                 .document(userId)
-                .collection("daily_logs")
+                .collection("dailyLogs")
                 .get()
                 .await()
             Log.d("FirestoreDebug", "Fetched ${snapshot.documents.size} daily logs for user: $userId")

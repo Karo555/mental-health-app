@@ -2,7 +2,10 @@ package com.edu.auri.backend.registration
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 
 /**
  * ViewModel responsible for managing user authentication using Firebase Authentication.
@@ -13,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 class AuthViewModel : ViewModel() {
 
     private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
     // Internal mutable live data for updating the authentication state.
     private val _authState = MutableLiveData<AuthState>()
@@ -36,6 +40,8 @@ class AuthViewModel : ViewModel() {
         if (auth.currentUser == null) {
             _authState.value = AuthState.Unauthenticated
         } else {
+            // Ensure that a user document exists.
+            ensureUserDocumentExists()
             _authState.value = AuthState.Authenticated
         }
     }
@@ -58,6 +64,8 @@ class AuthViewModel : ViewModel() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    // Ensure that a user document exists when login is successful.
+                    ensureUserDocumentExists()
                     _authState.value = AuthState.Authenticated
                 } else {
                     _authState.value = AuthState.Error(task.exception?.message ?: "Login failed")
@@ -72,6 +80,9 @@ class AuthViewModel : ViewModel() {
      * with an [AuthState.Error]. Otherwise, the operation is initiated with [AuthState.Loading]
      * until the task completes successfully or fails.
      *
+     * This implementation now waits for the user's profile to be updated (with the display name)
+     * before ensuring the user document exists in Firestore.
+     *
      * @param email The email address to register.
      * @param password The password for the new account.
      * @param name The name of the user.
@@ -85,7 +96,26 @@ class AuthViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    _authState.value = AuthState.Authenticated
+                    val user = auth.currentUser
+                    if (user != null) {
+                        val profileUpdates = UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build()
+                        // Wait for the profile update to complete
+                        user.updateProfile(profileUpdates)
+                            .addOnCompleteListener { updateTask ->
+                                if (updateTask.isSuccessful) {
+                                    // Now that the displayName is updated, ensure a user document exists.
+                                    ensureUserDocumentExists()
+                                    _authState.value = AuthState.Authenticated
+                                } else {
+                                    _authState.value = AuthState.Error(updateTask.exception?.message
+                                        ?: "Profile update failed")
+                                }
+                            }
+                    } else {
+                        _authState.value = AuthState.Error("User creation succeeded but user is null")
+                    }
                 } else {
                     _authState.value = AuthState.Error(task.exception?.message ?: "Sign-up failed")
                 }
@@ -98,6 +128,26 @@ class AuthViewModel : ViewModel() {
     fun signOut() {
         auth.signOut()
         _authState.value = AuthState.Unauthenticated
+    }
+
+    /**
+     * Ensures that a Firestore document exists for the current user in the "users" collection.
+     *
+     * If the document does not exist, it creates a new document with basic user information.
+     */
+    private fun ensureUserDocumentExists() {
+        val user = auth.currentUser ?: return
+        val userDocRef = firestore.collection("users").document(user.uid)
+        userDocRef.get().addOnSuccessListener { document ->
+            if (!document.exists()) {
+                val userData = hashMapOf(
+                    "email" to user.email,
+                    "displayName" to user.displayName, // This should now reflect the correct display name
+                    "createdAt" to Timestamp.now()
+                )
+                userDocRef.set(userData)
+            }
+        }
     }
 }
 
