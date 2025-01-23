@@ -3,6 +3,7 @@ package com.edu.auri.frontend.insights
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,12 +26,6 @@ import androidx.navigation.NavController
 import com.edu.auri.frontend.components.BottomBar
 @Composable
 fun Insights(navController: NavController) {
-    val insights = listOf(
-        "Take regular breaks.",
-        "Talk to someone you trust.",
-        "Stay physically active.",
-        "Practice gratitude daily."
-    )
 
     Scaffold(
         bottomBar = { BottomBar(navController) }
@@ -61,22 +57,19 @@ fun Insights(navController: NavController) {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             ) {
-                items(insights) { insight ->
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = insight,
-                            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal),
-                            modifier = Modifier.weight(1f)
-                        )
-                        Button(onClick = { /* Handle action */ }) {
-                            Text("Save")
-                        }
+                item { Spacer(
+                    modifier = Modifier.height(46.dp)) }
+                item { Text("Here are some insights based on your daily logs:") }
+                item { Spacer(
+                    modifier = Modifier.height(46.dp)) }
+                item {
+                    Button(onClick = { /* TODO: Handle action for receiving insights with OpenAI  */ }) {
+                        Text(" Get your insights ")
                     }
+                }
+                item { Spacer(modifier = Modifier.height(16.dp)) }
+                item {
+                    Card() { }
                 }
             }
         }
