@@ -12,10 +12,12 @@ import androidx.navigation.NavController
 import com.edu.auri.frontend.components.BottomBar
 
 /**
+ * Composable function that renders the History screen.
  *
- */
-/**
+ * This screen displays a Scaffold with a bottom bar and a Surface that fills the available space.
+ * The Surface has a background color based on the MaterialTheme color scheme.
  *
+ * @param navController The NavController used for navigation between screens.
  */
 @Composable
 fun HistoryScreen(navController: NavController){
