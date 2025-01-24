@@ -264,18 +264,17 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Button(
-                            onClick = {logDailyViewModel.saveDailyLog(dailyLog)},
+                            onClick = {logDailyViewModel.saveDailyLog(dailyLog, logDailyViewModel.getCurrentDate())},
                             Modifier.width(310.dp)
                         ) {
                             Text("Save data")
                         }
                     }
                 }
-
-            }
             }
         }
     }
+}
 
 
 @Composable

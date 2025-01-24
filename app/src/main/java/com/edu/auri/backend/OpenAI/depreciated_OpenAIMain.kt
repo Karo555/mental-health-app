@@ -28,7 +28,7 @@ import java.util.Locale
  *
  * Firestore logging is enabled for debugging purposes.
  */
-class OpenAIMain : ComponentActivity() {
+class depreciated_OpenAIMain : ComponentActivity() {
 
     /**
      * Button to initiate fetching data.
@@ -101,7 +101,7 @@ class OpenAIMain : ComponentActivity() {
                         Log.e("OpenAIMain", "No user is currently logged in.")
                         withContext(Dispatchers.Main) {
                             Toast.makeText(
-                                this@OpenAIMain,
+                                this@depreciated_OpenAIMain,
                                 "Please log in to fetch your daily logs.",
                                 Toast.LENGTH_LONG
                             ).show()
@@ -152,7 +152,7 @@ class OpenAIMain : ComponentActivity() {
                     withContext(Dispatchers.Main) {
                         tvTips.text = openaiResponse ?: "Failed to retrieve a response from OpenAI."
                         Toast.makeText(
-                            this@OpenAIMain,
+                            this@depreciated_OpenAIMain,
                             "Data fetched & analyzed",
                             Toast.LENGTH_LONG
                         ).show()
@@ -162,7 +162,7 @@ class OpenAIMain : ComponentActivity() {
                     Log.e("OpenAIMain", "Error during Firestore/OpenAI processing", e)
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
-                            this@OpenAIMain,
+                            this@depreciated_OpenAIMain,
                             "Error occurred: ${e.message}",
                             Toast.LENGTH_LONG
                         ).show()
