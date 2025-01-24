@@ -16,7 +16,7 @@ import com.google.firebase.firestore.ServerTimestamp
  * @property cupsOfCoffee The number of cups of coffee consumed during the day.
  * @property drugs A Boolean indicating whether drugs were used on the day.
  * @property gratification The recorded level of gratification or satisfaction experienced.
- * @property litersOfWater The number of liters of water consumed during the day.
+ * @property waterIntake The number of liters of water consumed during the day.
  * @property mood A textual description of the overall mood.
  * @property sleepHours The number of hours slept during the day.
  * @property socialInteractions The count or measure of social interactions during the day.
