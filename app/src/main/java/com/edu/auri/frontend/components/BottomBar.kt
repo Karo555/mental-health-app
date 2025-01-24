@@ -41,10 +41,10 @@ fun BottomBar(navController: NavController) {
             onClick = { navController.navigate("insights") }
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Favorite, contentDescription = "Gratitude") },
-            label = { Text("Gratitude") },
-            selected = currentRoute == "gratitude",
-            onClick = { navController.navigate("gratitude") }
+            icon = { Icon(Icons.Default.Favorite, contentDescription = "Journal") },
+            label = { Text("History") },
+            selected = currentRoute == "history",
+            onClick = { navController.navigate("history") }
         )
         NavigationBarItem(
             icon = { Icon(Icons.Default.Settings, contentDescription = "Settings") },

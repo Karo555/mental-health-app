@@ -1,4 +1,4 @@
-package com.edu.auri.frontend.insights
+package com.edu.auri.backend.insights
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

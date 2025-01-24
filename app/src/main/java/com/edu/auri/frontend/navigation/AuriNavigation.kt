@@ -8,7 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.edu.auri.backend.dailylogs.LogDailyViewModel
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.dayoverview.DayOverviewScreen
-import com.edu.auri.frontend.gratitude.GratitudeScreen
+import com.edu.auri.frontend.history.HistoryScreen
 import com.edu.auri.frontend.insights.InsightsScreen
 import com.edu.auri.frontend.login.LoginScreen
 import com.edu.auri.frontend.menu.HomeScreen
@@ -49,15 +49,14 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, 
                 LoginScreen(modifier, navController, authViewModel)
             }
             composable("insights") {
-                val navController = rememberNavController()
-                InsightsScreen(navController = navController)
+                InsightsScreen(navController)
             }
 
             composable("settings") {
                 SettingsScreen(navController)
             }
-            composable("gratitude") {
-                GratitudeScreen(navController)
+            composable("history") {
+                HistoryScreen(navController)
             }
             composable("dayoverview") {
                 DayOverviewScreen(modifier, navController, logDailyViewModel)
@@ -66,9 +65,6 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, 
             composable("Journal") {
                 MoodJournal(modifier, navController, auth = FirebaseAuth.getInstance()) // recheck
             }
-/*            composable("MoodScrenTest") {
-                MoodScreenTest()
-            }*/
         }
     )
 }

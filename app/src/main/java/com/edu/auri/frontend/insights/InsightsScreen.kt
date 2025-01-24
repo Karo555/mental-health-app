@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.edu.auri.backend.insights.InsightsViewModel
 import com.edu.auri.frontend.components.BottomBar
-import kotlinx.coroutines.launch
 
 @Composable
 fun InsightsScreen(navController: NavController, viewModel: InsightsViewModel = viewModel()) {
