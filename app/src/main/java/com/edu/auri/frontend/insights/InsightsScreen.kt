@@ -44,8 +44,9 @@ fun InsightsScreen(navController: NavController, viewModel: InsightsViewModel = 
             Text(
                 text = "Insights",
                 style = TextStyle(
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    lineHeight = 23.sp,
+                    fontWeight = FontWeight(700),
                     textAlign = TextAlign.Center
                 ),
                 modifier = Modifier
