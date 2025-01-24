@@ -37,8 +37,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.edu.auri.backend.dailylogs.DailyLog
 import com.edu.auri.backend.dailylogs.LogDailyViewModel
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.ServerTimestamp
 
 /**
  * A composable function that displays the day overview screen.
