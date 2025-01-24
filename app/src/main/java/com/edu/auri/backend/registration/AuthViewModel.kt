@@ -1,11 +1,14 @@
 package com.edu.auri.backend.registration
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
+
+private const val TAG = "AuthViewModel"
 
 /**
  * ViewModel responsible for managing user authentication using Firebase Authentication.
@@ -27,6 +30,7 @@ class AuthViewModel : ViewModel() {
     val authState: MutableLiveData<AuthState> = _authState
 
     init {
+        Log.d(TAG, "AuthViewModel initialized")
         checkAuthState()
     }
 
@@ -37,9 +41,12 @@ class AuthViewModel : ViewModel() {
      * otherwise, it is set to [AuthState.Authenticated].
      */
     private fun checkAuthState() {
-        if (auth.currentUser == null) {
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            Log.d(TAG, "No authenticated user found")
             _authState.value = AuthState.Unauthenticated
         } else {
+            Log.d(TAG, "Authenticated user found: ${currentUser.email}")
             // Ensure that a user document exists.
             ensureUserDocumentExists()
             _authState.value = AuthState.Authenticated
@@ -57,17 +64,21 @@ class AuthViewModel : ViewModel() {
      * @param password The user's password.
      */
     fun login(email: String, password: String) {
+        Log.d(TAG, "Attempting to log in with email: $email")
         if (email.isEmpty() || password.isEmpty()) {
+            Log.w(TAG, "Login failed: Fields cannot be empty")
             _authState.value = AuthState.Error("Fields cannot be empty")
             return
         }
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    Log.d(TAG, "Login successful for user: ${auth.currentUser?.email}")
                     // Ensure that a user document exists when login is successful.
                     ensureUserDocumentExists()
                     _authState.value = AuthState.Authenticated
                 } else {
+                    Log.e(TAG, "Login failed: ${task.exception?.message}")
                     _authState.value = AuthState.Error(task.exception?.message ?: "Login failed")
                 }
             }
@@ -88,7 +99,9 @@ class AuthViewModel : ViewModel() {
      * @param name The name of the user.
      */
     fun signUp(email: String, password: String, name: String) {
+        Log.d(TAG, "Attempting to sign up with email: $email and name: $name")
         if (email.isEmpty() || password.isEmpty() || name.isEmpty()) {
+            Log.w(TAG, "Sign-up failed: Fields cannot be empty")
             _authState.value = AuthState.Error("Fields cannot be empty")
             return
         }
@@ -96,6 +109,7 @@ class AuthViewModel : ViewModel() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+                    Log.d(TAG, "User creation successful for email: $email")
                     val user = auth.currentUser
                     if (user != null) {
                         val profileUpdates = UserProfileChangeRequest.Builder()
@@ -105,18 +119,22 @@ class AuthViewModel : ViewModel() {
                         user.updateProfile(profileUpdates)
                             .addOnCompleteListener { updateTask ->
                                 if (updateTask.isSuccessful) {
+                                    Log.d(TAG, "User profile updated with name: $name")
                                     // Now that the displayName is updated, ensure a user document exists.
                                     ensureUserDocumentExists()
                                     _authState.value = AuthState.Authenticated
                                 } else {
+                                    Log.e(TAG, "Profile update failed: ${updateTask.exception?.message}")
                                     _authState.value = AuthState.Error(updateTask.exception?.message
                                         ?: "Profile update failed")
                                 }
                             }
                     } else {
+                        Log.e(TAG, "User creation succeeded but user is null")
                         _authState.value = AuthState.Error("User creation succeeded but user is null")
                     }
                 } else {
+                    Log.e(TAG, "Sign-up failed: ${task.exception?.message}")
                     _authState.value = AuthState.Error(task.exception?.message ?: "Sign-up failed")
                 }
             }
@@ -126,6 +144,7 @@ class AuthViewModel : ViewModel() {
      * Signs out the current user and updates [authState] to [AuthState.Unauthenticated].
      */
     fun signOut() {
+        Log.d(TAG, "Signing out user: ${auth.currentUser?.email}")
         auth.signOut()
         _authState.value = AuthState.Unauthenticated
     }
@@ -136,17 +155,32 @@ class AuthViewModel : ViewModel() {
      * If the document does not exist, it creates a new document with basic user information.
      */
     private fun ensureUserDocumentExists() {
-        val user = auth.currentUser ?: return
+        val user = auth.currentUser
+        if (user == null) {
+            Log.w(TAG, "ensureUserDocumentExists called but user is null")
+            return
+        }
         val userDocRef = firestore.collection("users").document(user.uid)
         userDocRef.get().addOnSuccessListener { document ->
             if (!document.exists()) {
+                Log.d(TAG, "Creating Firestore document for user: ${user.uid}")
                 val userData = hashMapOf(
                     "email" to user.email,
                     "displayName" to user.displayName, // This should now reflect the correct display name
                     "createdAt" to Timestamp.now()
                 )
                 userDocRef.set(userData)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "User document created successfully for user: ${user.uid}")
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.e(TAG, "Failed to create user document for user: ${user.uid}, error: ${exception.message}")
+                    }
+            } else {
+                Log.d(TAG, "User document already exists for user: ${user.uid}")
             }
+        }.addOnFailureListener { exception ->
+            Log.e(TAG, "Failed to fetch user document for user: ${user.uid}, error: ${exception.message}")
         }
     }
 }

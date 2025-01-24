@@ -50,7 +50,7 @@
 
 
         <activity
-            android:name="com.edu.auri.backend.OpenAI.OpenAIMain"
+            android:name="com.edu.auri.backend.OpenAI.depreciated_OpenAIMain"
             android:exported="true">
             <!-- The MAIN/LAUNCHER intent-filter makes this the entry point of your app -->
             <intent-filter>

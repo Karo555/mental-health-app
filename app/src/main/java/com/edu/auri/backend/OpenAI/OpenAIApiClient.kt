@@ -1,6 +1,6 @@
 package com.edu.auri.backend.OpenAI
 
-import com.edu.auri.BuildConfig  // Make sure this matches your app's package name where BuildConfig is generated
+import com.edu.auri.BuildConfig  // Ensure this matches your app's package name where BuildConfig is generated
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -18,7 +18,7 @@ object OpenAIClient {
     /**
      * The API key for authenticating requests with OpenAI, retrieved from BuildConfig.
      */
-    private const val openAiApiKey = BuildConfig.OPENAI_API_KEY
+    private const val OPENAI_API_KEY = BuildConfig.OPENAI_API_KEY
 
     /**
      * Interceptor that adds the Authorization header required by the OpenAI API.
@@ -26,7 +26,7 @@ object OpenAIClient {
     private val authInterceptor = Interceptor { chain ->
         val originalRequest = chain.request()
         val newRequest = originalRequest.newBuilder()
-            .header("Authorization", "Bearer $openAiApiKey")
+            .header("Authorization", "Bearer $OPENAI_API_KEY")
             .build()
         chain.proceed(newRequest)
     }

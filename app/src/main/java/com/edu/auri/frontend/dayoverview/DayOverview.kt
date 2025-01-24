@@ -19,10 +19,13 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,18 +40,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.edu.auri.backend.dailylogs.DailyLog
 import com.edu.auri.backend.dailylogs.LogDailyViewModel
-import com.google.firebase.Timestamp
-import com.google.firebase.firestore.ServerTimestamp
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
 
-/**
- * A composable function that displays the day overview screen.
- *
- * @param modifier The modifier to be applied to the composable function.
- * @param navController The navigation controller to be used for navigation.
- */
 @Composable
-fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavController,
-                      logDailyViewModel: LogDailyViewModel) {
+fun DayOverviewScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    logDailyViewModel: LogDailyViewModel
+) {
     var mood by remember { mutableStateOf("") }
     var sleepHours by remember { mutableStateOf(0f) }
     var gratification by remember { mutableStateOf(0f) }
@@ -64,7 +64,7 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
     var socialIneractions by remember { mutableStateOf(0f) }
     var drugs by remember { mutableStateOf(false) }
 
-    var dailyLog = DailyLog(
+    val dailyLog = DailyLog(
         mood = mood,
         sleepHours = sleepHours,
         gratification = gratification,
@@ -80,8 +80,12 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
         cupsOfCoffee = cupsOfCoffee,
         drugs = drugs
     )
-    Scaffold(
 
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
     ) { paddingValues ->
         Surface(
             color = MaterialTheme.colorScheme.background,
@@ -90,7 +94,8 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                 .padding(paddingValues)
         ) {
             LazyColumn(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .padding(paddingValues),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
@@ -115,7 +120,6 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                         )
                     }
                 }
-
 
                 item {
                     SectionTitle(title = "Mood")
@@ -257,28 +261,31 @@ fun DayOverviewScreen(modifier: Modifier = Modifier, navController: NavControlle
                     )
                 }
                 item { Spacer(modifier = Modifier.height(24.dp)) }
-                item{
+                item {
                     Row(
                         modifier = Modifier
                             .width(390.dp)
                             .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
-                        horizontalArrangement = Arrangement.Absolute.Center,
+                        horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Button(
-                            onClick = {logDailyViewModel.saveDailyLog(dailyLog)},
-                            Modifier.width(310.dp)
+                            onClick = {
+                                logDailyViewModel.saveDailyLog(dailyLog, logDailyViewModel.getCurrentDate())
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("Data saved successfully")
+                                }
+                            },
+                            modifier = Modifier.width(310.dp)
                         ) {
                             Text("Save data")
                         }
                     }
                 }
-
-            }
             }
         }
     }
-
+}
 
 @Composable
 fun SectionTitle(title: String) {

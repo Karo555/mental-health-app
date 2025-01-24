@@ -1,5 +1,6 @@
 package com.edu.auri.frontend.login
 
+import android.util.Log // Added import for Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,9 @@ import com.edu.auri.frontend.components.EmailField
 import com.edu.auri.frontend.components.PasswordField
 import com.edu.auri.ui.theme.AuriTheme
 
+// Define a TAG for logging
+private const val TAG = "LoginScreen"
+
 /**
  * Composable function that renders the Login Screen.
  *
@@ -53,6 +57,8 @@ fun LoginScreen(
     navController: NavController,
     authViewModel: AuthViewModel
 ) {
+    Log.d(TAG, "LoginScreen composed") // Log when the LoginScreen is composed
+
     // Hold the input states for email and password.
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
@@ -64,12 +70,18 @@ fun LoginScreen(
     // React to authentication state changes.
     LaunchedEffect(authState.value) {
         when (authState.value) {
-            is AuthState.Authenticated -> navController.navigate("home")
-            is AuthState.Error ->
+            is AuthState.Authenticated -> {
+                Log.d(TAG, "User authenticated successfully. Navigating to home.")
+                navController.navigate("home")
+            }
+            is AuthState.Error -> {
+                val errorMessage = (authState.value as AuthState.Error).message
+                Log.e(TAG, "Authentication error: $errorMessage")
                 Toast.makeText(
-                    context, (authState.value as AuthState.Error).message,
+                    context, errorMessage,
                     Toast.LENGTH_SHORT
                 ).show()
+            }
             else -> Unit
         }
     }
@@ -106,12 +118,20 @@ fun LoginScreen(
                 PasswordField(password)
                 Spacer(modifier = Modifier.height(28.dp))
                 // Button triggering login.
-                Button(onClick = { authViewModel.login(email.value, password.value) }) {
+                Button(
+                    onClick = {
+                        Log.d(TAG, "Login button clicked with email: ${email.value}")
+                        authViewModel.login(email.value, password.value)
+                    }
+                ) {
                     Text(text = "Login")
                 }
                 Spacer(modifier = Modifier.height(28.dp))
                 // Button to navigate to sign up.
-                TextButton(onClick = { navController.navigate("signup") }) {
+                TextButton(onClick = {
+                    Log.d(TAG, "Navigating to sign up screen.")
+                    navController.navigate("signup")
+                }) {
                     Text(text = "Don't have an account? Create account")
                 }
                 Spacer(modifier = Modifier.height(28.dp))
