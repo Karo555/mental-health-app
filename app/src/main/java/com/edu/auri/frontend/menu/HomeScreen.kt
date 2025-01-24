@@ -74,7 +74,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                 item {
                     Row(
                         modifier = Modifier
-                            .width(390.dp)
+                            .fillMaxWidth()
                             .height(64.dp)
                             .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
                         horizontalArrangement = Arrangement.Center,
@@ -122,7 +122,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                 item {
                     Row(
                         modifier = Modifier
-                            .width(390.dp)
+                            .fillMaxWidth()
                             .height(64.dp)
                             .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
@@ -140,7 +140,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                 item {
                     Row(
                         modifier = Modifier
-                            .width(390.dp)
+                            .fillMaxWidth()
                             .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
                         horizontalArrangement = Arrangement.Absolute.Left,
                         verticalAlignment = Alignment.CenterVertically
@@ -157,8 +157,9 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
 
                 item {
                     Box(
-                        modifier = Modifier.width(390.dp),
-                        contentAlignment = Alignment.Center
+                        modifier = Modifier.width(390.dp)
+                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+
                     ) {
                         Card(
                             modifier = Modifier
@@ -229,22 +230,6 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                     }
                 }
 
-                item {
-                    Row(
-                        modifier = Modifier
-                            .width(390.dp)
-                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
-                        horizontalArrangement = Arrangement.Absolute.Left,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Button(
-                            onClick = { authViewModel.signOut() },
-                            Modifier.width(310.dp)
-                        ) {
-                            Text("Sign out TEMPORARY")
-                        }
-                    }
-                }
             }
         }
     }

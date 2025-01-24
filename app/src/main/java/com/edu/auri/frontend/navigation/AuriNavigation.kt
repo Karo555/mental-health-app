@@ -53,7 +53,7 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, 
             }
 
             composable("settings") {
-                SettingsScreen(navController)
+                SettingsScreen(navController, authViewModel)
             }
             composable("history") {
                 HistoryScreen(navController)
