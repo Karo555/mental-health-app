@@ -68,7 +68,9 @@ class InsightsViewModel : ViewModel() {
                 Log.d("InsightsViewModel", "Serialized Daily Log JSON: $dailyLogJson")
 
                 val prompt = if (dailyLog != null) {
-                    "Based on the following daily log, provide personalized tips:\nDaily Log: $dailyLogJson"
+                    "Based on the following daily log, provide personalized tips:\n" +
+                            "Daily Log: $dailyLogJson (Please finish the sentence before stopping, and avoid any bold or other text formatting.).\n" +
+                            "Open the Json file with DailyLog provided earlier, if DailyLog is empty, kindly remind the user to log the data first and come back later for insights."
                 } else {
                     "No daily log data available for date: $date."
                 }
