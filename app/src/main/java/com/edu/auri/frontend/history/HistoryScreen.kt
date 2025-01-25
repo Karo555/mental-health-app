@@ -20,6 +20,12 @@ import com.kizitonwose.calendar.core.*
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
+/**
+ * Displays the history screen with a calendar view of logged daily data.
+ *
+ * @param navController The navigation controller for handling screen navigation.
+ * @param viewModel The ViewModel for managing daily logs data.
+ */
 @Composable
 fun HistoryScreen(navController: NavController, viewModel: LogDailyViewModel) {
     val dailyLogs by viewModel.dailyLogs.collectAsState()
@@ -103,6 +109,12 @@ fun HistoryScreen(navController: NavController, viewModel: LogDailyViewModel) {
     }
 }
 
+/**
+ * Displays the bottom sheet with detailed information of the selected daily log.
+ *
+ * @param selectedLog The daily log selected by the user.
+ * @param onDismiss Callback function to dismiss the bottom sheet.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoodDetailsBottomSheet(selectedLog: DailyLog, onDismiss: () -> Unit) {
