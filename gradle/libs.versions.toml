@@ -1,4 +1,5 @@
 [versions]
+compose = "2.0.0"
 mpandroidchart = "3.1.0"
 agp = "8.8.0"
 converterGson = "2.11.0"
@@ -31,6 +32,7 @@ coreKtxVersion = "1.6.1"
 junitJunit = "4.13.2"
 
 [libraries]
+compose = { module = "com.kizitonwose.calendar:compose", version.ref = "compose" }
 mpandroidchart = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "mpandroidchart" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }

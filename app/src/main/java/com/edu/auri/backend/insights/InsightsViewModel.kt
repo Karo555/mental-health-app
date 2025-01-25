@@ -72,7 +72,7 @@ class InsightsViewModel : ViewModel() {
                             "Daily Log: $dailyLogJson (Please finish the sentence before stopping, and avoid any bold or other text formatting.).\n" +
                             "Open the Json file with DailyLog provided earlier, if DailyLog is empty, kindly remind the user to log the data first and come back later for insights."
                 } else {
-                    "No daily log data available for date: $date."
+                    "No daily log data available for date: $date. Tell user to first log the data and come back later for insights. Do not use current date from daily log. Refer to it as 'today'."
                 }
                 Log.d("InsightsViewModel", "Prompt for OpenAI: $prompt")
 

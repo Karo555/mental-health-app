@@ -12,7 +12,7 @@ import com.edu.auri.frontend.history.HistoryScreen
 import com.edu.auri.frontend.insights.InsightsScreen
 import com.edu.auri.frontend.login.LoginScreen
 import com.edu.auri.frontend.menu.HomeScreen
-import com.edu.auri.frontend.moodjournal.MoodJournal
+//import com.edu.auri.frontend.moodjournal.MoodJournal
 import com.edu.auri.frontend.setttings.SettingsScreen
 import com.edu.auri.frontend.sign_up.RegistrationScreen
 import com.edu.auri.frontend.welcomescreen.WelcomeScreen
@@ -62,9 +62,9 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, 
                 DayOverviewScreen(modifier, navController, logDailyViewModel)
             }
 
-            composable("Journal") {
-                MoodJournal(modifier, navController, auth = FirebaseAuth.getInstance()) // recheck
-            }
+//            composable("Journal") {
+//                MoodJournal(modifier, navController, auth = FirebaseAuth.getInstance()) // recheck
+//            }
         }
     )
 }

@@ -69,6 +69,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.compose)
     implementation(libs.mpandroidchart)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
