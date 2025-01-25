@@ -113,6 +113,16 @@ fun MoodDetailsBottomSheet(selectedLog: DailyLog, onDismiss: () -> Unit) {
             Text("Water Intake: ${selectedLog.waterIntake ?: 0} liters")
             Text("Sleep Hours: ${selectedLog.sleepHours ?: 0} hrs")
             Text("Workout Time: ${selectedLog.workoutTime ?: 0} min")
+            Text("Stress Level: ${selectedLog.stressLevel ?: 0}")
+            Text("Anxiety Level: ${selectedLog.anxietyLevel ?: 0}")
+            Text("Gratification: ${selectedLog.gratification ?: 0}")
+            Text("Anger Level: ${selectedLog.angerLevel ?: 0}")
+            Text("Social Interactions: ${selectedLog.socialInteractions ?: 0}")
+            Text("Alcohol: ${selectedLog.alcohol ?: 0}")
+            Text("Cigarettes: ${selectedLog.cigarettes ?: 0}")
+            Text("Cups of Coffee: ${selectedLog.cupsOfCoffee ?: 0}")
+            Text("Drugs: ${selectedLog.drugs ?: false}")
+            Text("Sweets: ${selectedLog.sweets ?: 0}")
         }
     }
 }
