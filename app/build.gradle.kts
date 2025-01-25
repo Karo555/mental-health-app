@@ -69,7 +69,7 @@ android {
 }
 
 dependencies {
-    implementation(libs.compose)
+    implementation("com.kizitonwose.calendar:compose:2.0.0")
     implementation(libs.mpandroidchart)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)

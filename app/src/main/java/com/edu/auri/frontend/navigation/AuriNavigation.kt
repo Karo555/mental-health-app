@@ -2,6 +2,7 @@ package com.edu.auri.frontend.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,7 +17,6 @@ import com.edu.auri.frontend.menu.HomeScreen
 import com.edu.auri.frontend.setttings.SettingsScreen
 import com.edu.auri.frontend.sign_up.RegistrationScreen
 import com.edu.auri.frontend.welcomescreen.WelcomeScreen
-import com.google.firebase.auth.FirebaseAuth
 
 /**
  * Sets up the navigation graph for the Auri application.
@@ -29,7 +29,12 @@ import com.google.firebase.auth.FirebaseAuth
  * @param authViewModel The [AuthViewModel] managing authentication, which is passed along to various screens.
  */
 @Composable
-fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, logDailyViewModel: LogDailyViewModel) {
+fun AuriNavigation(
+    modifier: Modifier = Modifier,
+    authViewModel: AuthViewModel,
+    logDailyViewModel: LogDailyViewModel,
+    navController: NavHostController
+) {
     val navController = rememberNavController()
 
     NavHost(
@@ -56,7 +61,10 @@ fun AuriNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel, 
                 SettingsScreen(navController, authViewModel)
             }
             composable("history") {
-                HistoryScreen(navController)
+                HistoryScreen(
+                    navController,
+                    viewModel = logDailyViewModel
+                )
             }
             composable("dayoverview") {
                 DayOverviewScreen(modifier, navController, logDailyViewModel)
