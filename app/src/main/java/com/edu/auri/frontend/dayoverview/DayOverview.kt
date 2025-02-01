@@ -22,6 +22,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -273,7 +275,13 @@ fun DayOverviewScreen(
                             onClick = {
                                 logDailyViewModel.saveDailyLog(dailyLog, logDailyViewModel.getCurrentDate())
                                 coroutineScope.launch {
-                                    snackbarHostState.showSnackbar("Data saved successfully")
+                                    val result = snackbarHostState.showSnackbar(
+                                        message = "Data saved successfully",
+                                        duration = SnackbarDuration.Short // Ensures the snackbar is displayed for a short time
+                                    )
+                                    if (result == SnackbarResult.Dismissed || result == SnackbarResult.ActionPerformed) {
+                                        navController.navigate("home")
+                                    }
                                 }
                             },
                             modifier = Modifier.width(310.dp)
