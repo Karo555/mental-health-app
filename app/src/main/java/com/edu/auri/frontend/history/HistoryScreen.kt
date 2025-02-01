@@ -9,7 +9,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.edu.auri.backend.dailylogs.DailyLog
 import com.edu.auri.backend.dailylogs.LogDailyViewModel
@@ -62,11 +66,25 @@ fun HistoryScreen(navController: NavController, viewModel: LogDailyViewModel) {
                 modifier = Modifier.padding(paddingValues),
                 verticalArrangement = Arrangement.Top
             ) {
-                Text(
-                    text = "History",
-                    style = MaterialTheme.typography.headlineSmall,
-                    modifier = Modifier.padding(16.dp)
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(64.dp)
+                        .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "History",
+                        style = TextStyle(
+                            fontSize = 18.sp,
+                            lineHeight = 23.sp,
+                            fontWeight = FontWeight(700),
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                }
+                Spacer(modifier = Modifier.height(44.dp))
 
                 VerticalCalendar(
                     modifier = Modifier.fillMaxSize(),

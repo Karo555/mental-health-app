@@ -69,6 +69,9 @@ android {
 }
 
 dependencies {
+    // The view calendar library for Android
+    // The view calendar library for Android
+    implementation("com.kizitonwose.calendar:view:2.0.0")
     implementation("com.kizitonwose.calendar:compose:2.0.0")
     implementation(libs.mpandroidchart)
     implementation(libs.converter.gson)

@@ -65,7 +65,6 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
 
             LazyColumn(
                 modifier = Modifier
-
                     .fillMaxWidth()
                     .padding(paddingValues),
                 verticalArrangement = Arrangement.Top,
@@ -110,32 +109,39 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
 
 
                 item { Spacer(modifier = Modifier.height(44.dp)) }
-
-                item {
-                    Text(
-                        text = "What is your current mood?",
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                }
-
                 item {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .width(390.dp)
+                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+                        horizontalArrangement = Arrangement.Absolute.Left,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Fill in the day overview ",
+                            style = MaterialTheme.typography.headlineMedium
+                        )
+                    }
+                }
+                item {
+                    Row(
+                        modifier = Modifier
+                            .width(390.dp)
                             .height(64.dp)
                             .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
                         verticalAlignment = Alignment.Top,
                     ) {
-                        MoodItem("Happy")
-                        MoodItem("Neutral")
-                        MoodItem("Angry")
-                        MoodItem("Sad")
+                        Button(
+                            onClick = { navController.navigate("dayoverview") },
+                            Modifier.width(310.dp)
+                        ) {
+                            Text("Complete today's overview  \uD83C\uDF16")
+                        }
                     }
                 }
-
                 item { Spacer(modifier = Modifier.height(24.dp)) }
+
 
                 item {
                     Row(
@@ -147,7 +153,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                     ) {
      
                         Text(
-                            text = "Your Journal \uD83D\uDCD3 ",
+                            text = "Add daily note",
                             style = MaterialTheme.typography.headlineMedium
                         )
                     }
@@ -177,58 +183,65 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                     }
                 }
 
-                item {
-                    Row(
-                        modifier = Modifier
-                            .width(390.dp)
-                            .height(64.dp)
-                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
-                        verticalAlignment = Alignment.Top,
-                    ) {
-                        Button(
-                            onClick = { /* Record mood action */ },
-                            modifier = Modifier.width(310.dp),
-                        ) {
-                            Text("Write a note")
-                        }
-                    }
-                }
+//                item {
+//                    Row(
+//                        modifier = Modifier
+//                            .width(390.dp)
+//                            .height(64.dp)
+//                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+//                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+//                        verticalAlignment = Alignment.Top,
+//                    ) {
+//                        Button(
+//                            onClick = { /* Record mood action */ },
+//                            modifier = Modifier.width(310.dp),
+//                        ) {
+//                            Text("Write a note")
+//                        }
+//                    }
+//                }
 
                 item { Spacer(modifier = Modifier.height(24.dp)) }
-
                 item {
                     Row(
                         modifier = Modifier
-                            .width(390.dp)
+                            .fillMaxWidth()
                             .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
                         horizontalArrangement = Arrangement.Absolute.Left,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Fill in the day overview \uD83C\uDF16 ",
+                            text = "Your journal",
                             style = MaterialTheme.typography.headlineMedium
                         )
                     }
                 }
-
+                item { Spacer(modifier = Modifier.height(15.dp)) }
                 item {
-                    Row(
-                        modifier = Modifier
-                            .width(390.dp)
-                            .height(64.dp)
+                    Box(
+                        modifier = Modifier.width(390.dp)
                             .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
-                        verticalAlignment = Alignment.Top,
+
                     ) {
-                        Button(
-                            onClick = { navController.navigate("dayoverview") },
-                            Modifier.width(310.dp)
+                        Card(
+                            modifier = Modifier
+                                .width(380.dp)
+                                .height(70.dp),
                         ) {
-                            Text("Complete today's overview")
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text("Today", style = MaterialTheme.typography.bodyMedium)
+                                Text(
+                                    "I'm grateful for the sunny weather",
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
                         }
                     }
                 }
+
+
+
+
 
             }
         }
