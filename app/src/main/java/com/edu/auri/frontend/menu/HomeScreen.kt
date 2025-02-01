@@ -1,5 +1,6 @@
 package com.edu.auri.frontend.menu
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -159,7 +160,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                     }
                 }
 
-                item { Spacer(modifier = Modifier.height(15.dp)) }
+                item { Spacer(modifier = Modifier.height(24.dp)) }
 
                 item {
                     Box(
@@ -170,7 +171,8 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                         Card(
                             modifier = Modifier
                                 .width(380.dp)
-                                .height(70.dp),
+                                .height(70.dp)
+                                .clickable { navController.navigate("notes") },
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Text("Today", style = MaterialTheme.typography.bodyMedium)
@@ -178,6 +180,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                                     "I'm grateful for the sunny weather",
                                     style = MaterialTheme.typography.bodySmall
                                 )
+
                             }
                         }
                     }
