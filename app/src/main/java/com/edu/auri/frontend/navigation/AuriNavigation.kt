@@ -14,6 +14,7 @@ import com.edu.auri.frontend.history.HistoryScreen
 import com.edu.auri.frontend.insights.InsightsScreen
 import com.edu.auri.frontend.login.LoginScreen
 import com.edu.auri.frontend.menu.HomeScreen
+import com.edu.auri.frontend.notes.NotesJournal
 import com.edu.auri.frontend.notes.NotesScreen
 //import com.edu.auri.frontend.moodjournal.MoodJournal
 import com.edu.auri.frontend.setttings.SettingsScreen
@@ -71,6 +72,9 @@ fun AuriNavigation(
             }
             composable("notes") {
                 NotesScreen(navController, notesViewModel, logDailyViewModel)
+            }
+            composable("notes journal") {
+                NotesJournal( navController, notesViewModel)
             }
 
 //            composable("Journal") {

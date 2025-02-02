@@ -30,9 +30,11 @@ import com.edu.auri.backend.dailylogs.LogDailyViewModel
 import com.edu.auri.backend.notes.Note
 import com.edu.auri.backend.notes.NotesViewModel
 import com.edu.auri.frontend.components.BottomBar
+import java.time.LocalDate
 
 @Composable
 fun NotesScreen(navController: NavController, viewModel: NotesViewModel, logDailyViewModel: LogDailyViewModel) {
+    val today = remember { LocalDate.now().toString() }
     Scaffold(
         bottomBar = {
             BottomBar(navController)
@@ -45,6 +47,7 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel, logDail
                     .padding(16.dp)
                     .fillMaxWidth()
             ) {
+
                 Text(
                     text = "Notes",
                     style = TextStyle(
@@ -53,6 +56,14 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel, logDail
                         fontWeight = FontWeight(700),
                         textAlign = TextAlign.Center
                     ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    text = today,
+                    style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 16.dp)

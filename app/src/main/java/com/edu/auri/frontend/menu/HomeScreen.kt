@@ -208,10 +208,11 @@ fun HomeScreen(
                         Card(
                             modifier = Modifier
                                 .width(380.dp)
-                                .height(70.dp),
+                                .height(70.dp)
+                                .clickable { navController.navigate("notes journal") },
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
-                                Text("Today", style = MaterialTheme.typography.bodyMedium)
+                                Text("Journal", style = MaterialTheme.typography.bodyMedium)
                                 Text(
                                     "I'm grateful for the sunny weather",
                                     style = MaterialTheme.typography.bodySmall
@@ -356,20 +357,37 @@ fun CompletedDayOverview() {
 
 }
 
+/**
+ * Composable function that displays an active day overview.
+ *
+ * This function displays a row with a button that navigates to the day overview screen when clicked.
+ *
+ * @param navController The navigation controller for handling screen navigation.
+ */
 @Composable
 fun DailyOverviewActive(navController: NavController) {
+    // Create a row with a fixed width and height, and padding on all sides
     Row(
         modifier = Modifier
-            .width(390.dp)
-            .height(64.dp)
-            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+            .width(390.dp) // Set the width of the row
+            .height(64.dp) // Set the height of the row
+            .padding( // Add padding to the row
+                start = 16.dp, // Padding on the start side
+                top = 12.dp, // Padding on the top side
+                end = 16.dp, // Padding on the end side
+                bottom = 12.dp // Padding on the bottom side
+            ),
+        // Arrange the children of the row horizontally with a spaced by arrangement
         horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+        // Align the children of the row vertically to the top
         verticalAlignment = Alignment.Top,
     ) {
+        // Create a button that navigates to the day overview screen when clicked
         Button(
-            onClick = { navController.navigate("dayoverview") },
-            Modifier.width(310.dp)
+            onClick = { navController.navigate("dayoverview") }, // Navigate to the day overview screen
+            Modifier.width(310.dp) // Set the width of the button
         ) {
+            // Display the text on the button
             Text("Complete today's overview  \uD83C\uDF16")
         }
     }
