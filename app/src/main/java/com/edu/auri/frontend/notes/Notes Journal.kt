@@ -30,7 +30,6 @@ import com.edu.auri.backend.notes.Note
 import com.edu.auri.backend.notes.NotesViewModel
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 @Composable
