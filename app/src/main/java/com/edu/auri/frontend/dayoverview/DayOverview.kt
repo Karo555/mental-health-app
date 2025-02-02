@@ -45,6 +45,14 @@ import com.edu.auri.backend.dailylogs.LogDailyViewModel
 import kotlinx.coroutines.launch
 import androidx.compose.runtime.rememberCoroutineScope
 
+/**
+ * Composable function that displays the day overview screen.
+ *
+ * @param modifier Modifier to apply to the composable function
+ * @param navController Navigation controller to navigate between screens
+ * @param logDailyViewModel View model to handle daily log data
+ */
+
 @Composable
 fun DayOverviewScreen(
     modifier: Modifier = Modifier,

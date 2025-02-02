@@ -26,10 +26,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.edu.auri.backend.dailylogs.LogDailyViewModel
+import com.edu.auri.backend.notes.Note
+import com.edu.auri.backend.notes.NotesViewModel
 import com.edu.auri.frontend.components.BottomBar
 
 @Composable
-fun NotesScreen(navController: NavController) {
+fun NotesScreen(navController: NavController, viewModel: NotesViewModel, logDailyViewModel: LogDailyViewModel) {
     Scaffold(
         bottomBar = {
             BottomBar(navController)
@@ -64,8 +67,13 @@ fun NotesScreen(navController: NavController) {
                     textStyle = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+                val note = Note(
+                    content = text.text
+                )
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        viewModel.saveNote(note)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Save")

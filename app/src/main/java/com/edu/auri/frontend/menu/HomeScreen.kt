@@ -17,7 +17,11 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,10 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.edu.auri.backend.dailylogs.LogDailyViewModel
 import com.edu.auri.backend.registration.AuthState
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.components.BottomBar
+import java.time.LocalDate
 import java.util.Calendar
+
 
 /**
 
@@ -41,8 +48,11 @@ import java.util.Calendar
  */
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
-               authViewModel: AuthViewModel) {
+fun HomeScreen(
+    modifier: Modifier = Modifier, navController: NavController,
+    authViewModel: AuthViewModel, viewModel: LogDailyViewModel
+) {
+    val dailyLogs by viewModel.dailyLogs.collectAsState()
     val authState = authViewModel.authState.observeAsState()
     LaunchedEffect(authState.value) {
         when (authState.value) {
@@ -124,23 +134,8 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                         )
                     }
                 }
-                item {
-                    Row(
-                        modifier = Modifier
-                            .width(390.dp)
-                            .height(64.dp)
-                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
-                        verticalAlignment = Alignment.Top,
-                    ) {
-                        Button(
-                            onClick = { navController.navigate("dayoverview") },
-                            Modifier.width(310.dp)
-                        ) {
-                            Text("Complete today's overview  \uD83C\uDF16")
-                        }
-                    }
-                }
+                item { DayOverviewButton(viewModel, navController) }
+//
                 item { Spacer(modifier = Modifier.height(24.dp)) }
 
 
@@ -152,22 +147,23 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                         horizontalArrangement = Arrangement.Absolute.Left,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-     
+
                         Text(
-                            text = "Add daily note",
+                            text = "Notes",
                             style = MaterialTheme.typography.headlineMedium
                         )
                     }
                 }
 
-                item { Spacer(modifier = Modifier.height(24.dp)) }
+                item { Spacer(modifier = Modifier.height(14.dp)) }
 
                 item {
                     Box(
-                        modifier = Modifier.width(390.dp)
+                        modifier = Modifier
+                            .width(390.dp)
                             .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
 
-                    ) {
+                        ) {
                         Card(
                             modifier = Modifier
                                 .width(380.dp)
@@ -186,25 +182,7 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                     }
                 }
 
-//                item {
-//                    Row(
-//                        modifier = Modifier
-//                            .width(390.dp)
-//                            .height(64.dp)
-//                            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
-//                        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
-//                        verticalAlignment = Alignment.Top,
-//                    ) {
-//                        Button(
-//                            onClick = { /* Record mood action */ },
-//                            modifier = Modifier.width(310.dp),
-//                        ) {
-//                            Text("Write a note")
-//                        }
-//                    }
-//                }
-
-                item { Spacer(modifier = Modifier.height(24.dp)) }
+                item { Spacer(modifier = Modifier.height(14.dp)) }
                 item {
                     Row(
                         modifier = Modifier
@@ -222,10 +200,11 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                 item { Spacer(modifier = Modifier.height(15.dp)) }
                 item {
                     Box(
-                        modifier = Modifier.width(390.dp)
+                        modifier = Modifier
+                            .width(390.dp)
                             .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
 
-                    ) {
+                        ) {
                         Card(
                             modifier = Modifier
                                 .width(380.dp)
@@ -243,13 +222,11 @@ fun HomeScreen(modifier: Modifier = Modifier, navController: NavController,
                 }
 
 
-
-
-
             }
         }
     }
 }
+
 
 /**
  * Composable function that represents a mood selection button.
@@ -318,5 +295,82 @@ fun getGreeting(): String {
         in 6..11 -> "Good morning"
         in 12..17 -> "Good afternoon"
         else -> "Good evening"
+    }
+}
+
+
+
+/**
+ * Composable function that displays a button for day overview.
+ *
+ * This function checks if today's log exists and displays either a completed day overview or an active day overview.
+ *
+ * @param viewModel The view model for managing daily logs data.
+ * @param navController The navigation controller for handling screen navigation.
+ */
+@Composable
+fun DayOverviewButton(viewModel: LogDailyViewModel, navController: NavController) {
+
+    val dailyLogs by viewModel.dailyLogs.collectAsState()
+    val today = remember { LocalDate.now().toString() }
+
+    // Continuously check if today's log exists
+    val hasCompletedToday by remember(dailyLogs) {
+        derivedStateOf { dailyLogs.containsKey(today) }
+    }
+
+    if (hasCompletedToday) {
+        CompletedDayOverview()
+    } else {
+        DailyOverviewActive(navController)
+    }
+}
+
+/**
+ * Composable function that displays a completed day overview.
+ *
+ * This function displays a card with a congratulatory message when the user has completed today's overview.
+ */
+@Composable
+fun CompletedDayOverview() {
+    Box(
+        modifier = Modifier
+            .width(390.dp)
+            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+
+        ) {
+
+        Card(
+            modifier = Modifier
+                .width(380.dp)
+                .height(90.dp),
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    "Great job! You've completed today's overview  \uD83C\uDF16\n",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+    }
+
+}
+
+@Composable
+fun DailyOverviewActive(navController: NavController) {
+    Row(
+        modifier = Modifier
+            .width(390.dp)
+            .height(64.dp)
+            .padding(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally),
+        verticalAlignment = Alignment.Top,
+    ) {
+        Button(
+            onClick = { navController.navigate("dayoverview") },
+            Modifier.width(310.dp)
+        ) {
+            Text("Complete today's overview  \uD83C\uDF16")
+        }
     }
 }

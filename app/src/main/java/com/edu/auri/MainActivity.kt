@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.edu.auri.backend.dailylogs.LogDailyViewModel
+import com.edu.auri.backend.notes.NotesViewModel
 import com.edu.auri.backend.registration.AuthViewModel
 import com.edu.auri.frontend.navigation.AuriNavigation
 import com.edu.auri.ui.theme.AuriTheme
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val authViewModel: AuthViewModel by viewModels()
         val logDailyViewModel: LogDailyViewModel by viewModels()
+        val notesViewModel: NotesViewModel by viewModels()
 
         setContent {
             AuriTheme {
@@ -42,7 +44,8 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.padding(innerPadding),
                             navController = navController,
                             authViewModel = authViewModel,
-                            logDailyViewModel = logDailyViewModel
+                            logDailyViewModel = logDailyViewModel,
+                            notesViewModel = notesViewModel
                         )
                         HistoryScreen(navController = navController, viewModel = logDailyViewModel)
                     }
