@@ -28,6 +28,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.edu.auri.backend.notes.Note
 import com.edu.auri.backend.notes.NotesViewModel
+import com.google.firebase.Timestamp
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun NotesJournal(navController: NavController, viewModel: NotesViewModel, modifier: Modifier = Modifier) {
@@ -69,15 +73,27 @@ fun NotesJournal(navController: NavController, viewModel: NotesViewModel, modifi
     }
 }
 
-// UI Component for a single note
+
 @Composable
 fun NoteItem(note: Note) {
+    // Function to convert Timestamp to a formatted date
+    fun convertTimestampToDate(timestamp: Timestamp?): String {
+        timestamp?.let {
+            val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+            return sdf.format(it.toDate()) // Convert Timestamp to Date and format
+        }
+        return "Unknown Date"
+    }
+
+    // Get formatted date if timestamp is available
+    val formattedDate = convertTimestampToDate(note.timestamp)
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = note.timestamp.toString(), fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text(text = formattedDate, fontWeight = FontWeight.Bold, fontSize = 16.sp) // Display formatted date
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = note.content, fontSize = 14.sp)
         }

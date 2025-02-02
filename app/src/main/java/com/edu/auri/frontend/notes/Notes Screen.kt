@@ -5,12 +5,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,10 +33,15 @@ import com.edu.auri.backend.notes.Note
 import com.edu.auri.backend.notes.NotesViewModel
 import com.edu.auri.frontend.components.BottomBar
 import java.time.LocalDate
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun NotesScreen(navController: NavController, viewModel: NotesViewModel, logDailyViewModel: LogDailyViewModel) {
     val today = remember { LocalDate.now().toString() }
+    val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
     Scaffold(
         bottomBar = {
             BottomBar(navController)
@@ -84,8 +91,13 @@ fun NotesScreen(navController: NavController, viewModel: NotesViewModel, logDail
                 Button(
                     onClick = {
                         viewModel.saveNote(note)
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(
+                                message = "Daily note saved successfully"
+                            )
+                        }
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.width(100.dp)
                 ) {
                     Text("Save")
                 }
