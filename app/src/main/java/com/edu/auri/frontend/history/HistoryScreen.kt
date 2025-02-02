@@ -20,7 +20,6 @@ import com.edu.auri.backend.dailylogs.LogDailyViewModel
 import com.edu.auri.frontend.components.BottomBar
 import com.kizitonwose.calendar.compose.VerticalCalendar
 import com.kizitonwose.calendar.compose.rememberCalendarState
-import com.kizitonwose.calendar.core.*
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 

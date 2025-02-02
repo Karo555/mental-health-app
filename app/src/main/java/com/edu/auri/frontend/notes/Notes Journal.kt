@@ -15,8 +15,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -30,6 +32,13 @@ import com.edu.auri.backend.notes.NotesViewModel
 @Composable
 fun NotesJournal(navController: NavController, viewModel: NotesViewModel, modifier: Modifier = Modifier) {
     val notes by viewModel.notes.collectAsState()
+
+    // Ensure sorting is applied
+    val sortedNotes = remember(notes) { notes.values.sortedByDescending { it.timestamp } }
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchNotes()
+    }
 
     Surface(
         color = MaterialTheme.colorScheme.background,
@@ -52,7 +61,7 @@ fun NotesJournal(navController: NavController, viewModel: NotesViewModel, modifi
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(notes.values.toList()) { note ->
+                items(sortedNotes) { note ->
                     NoteItem(note)
                 }
             }

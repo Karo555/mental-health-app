@@ -37,4 +37,26 @@ class NotesViewModel : ViewModel() {
             }
     }
 
+    fun fetchNotes() {
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            Log.e("FetchNotes", "User not authenticated")
+            return
+        }
+
+        database.collection("users")
+            .document(currentUser.uid)
+            .collection("notes")
+            .get()
+            .addOnSuccessListener { result ->
+                val notes = result.documents.mapNotNull { doc ->
+                    doc.toObject(Note::class.java)
+                }
+                _notes.value = notes.associateBy { it.timestamp.toString() }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FetchNotes", "Error fetching notes: ${exception.message}", exception)
+            }
+    }
+
 }
