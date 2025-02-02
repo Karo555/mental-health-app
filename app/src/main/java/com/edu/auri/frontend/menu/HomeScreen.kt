@@ -171,9 +171,9 @@ fun HomeScreen(
                                 .clickable { navController.navigate("notes") },
                         ) {
                             Column(modifier = Modifier.padding(16.dp)) {
-                                Text("Today", style = MaterialTheme.typography.bodyMedium)
+                                Text("My notes", style = MaterialTheme.typography.bodyMedium)
                                 Text(
-                                    "I'm grateful for the sunny weather",
+                                    "Add a new note",
                                     style = MaterialTheme.typography.bodySmall
                                 )
 

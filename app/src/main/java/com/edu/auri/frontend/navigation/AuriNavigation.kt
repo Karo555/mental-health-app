@@ -71,15 +71,11 @@ fun AuriNavigation(
                 DayOverviewScreen(modifier, navController, logDailyViewModel)
             }
             composable("notes") {
-                NotesScreen(navController, notesViewModel, logDailyViewModel)
+                NotesScreen(navController, notesViewModel)
             }
             composable("notes journal") {
                 NotesJournal( navController, notesViewModel)
             }
-
-//            composable("Journal") {
-//                MoodJournal(modifier, navController, auth = FirebaseAuth.getInstance()) // recheck
-//            }
         }
     )
 }
