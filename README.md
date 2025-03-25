@@ -18,8 +18,5 @@ Auri is a Kotlin-based mobile application designed to provide psychological supp
 <img src="./Screenshots/Welcome%20screen.png" alt="Welcome Screen" style="width:25%;"> <img src="./Screenshots/Home%20screen.png" alt="Welcome Screen" style="width:25%;"> <img src="./Screenshots/Insights%20screen.png" alt="Welcome Screen" style="width:25%;">
 <img src="./Screenshots/History%20screen.png" alt="Welcome Screen" style="width:25%;">
 
-
-
-
-
-
+## Releases 
+Find a fresh release in *release* folder  
