@@ -26,7 +26,7 @@ Auri is a Kotlin-based mobile application designed to provide psychological supp
 ## 📥 Installation
 1. Clone the repository:  
    ```sh
-   git clone https://github.com/your-repo/auri.git
+   git clone https://github.com/Karo555/mental-health-app.git
    ```
 2. Open the project in **Android Studio**.  
 3. Sync dependencies using Gradle.  
